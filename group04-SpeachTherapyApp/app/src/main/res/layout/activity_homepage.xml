@@ -33,6 +33,7 @@
         android:layout_height="60sp"
         android:id="@+id/allRecs"
         android:background="@color/buttonColour"
+        android:foreground="@drawable/ripple_effect"
         android:text="@string/all_recordings"
         android:textColor="#FFFFFF"
         android:textSize="25sp"
@@ -45,6 +46,7 @@
     <Button
         android:text="@string/exp_rec"
         android:background="@color/buttonColour"
+        android:foreground="@drawable/ripple_effect"
         android:textColor="#FFFFFF"
         android:layout_width="160sp"
         android:layout_height="60sp"
@@ -57,6 +59,7 @@
     <Button
         android:text="@string/edit_rec"
         android:background="@color/buttonColour"
+        android:foreground="@drawable/ripple_effect"
         android:textColor="#FFFFFF"
         android:layout_width="160sp"
         android:layout_height="60sp"
@@ -71,6 +74,7 @@
         android:text="@string/Greetings"
         android:textColor="#FFFFFF"
         android:background="@color/buttonColour"
+        android:foreground="@drawable/ripple_effect"
         android:layout_width="wrap_content"
         android:layout_height="100sp"
         android:textSize="25sp"
@@ -86,6 +90,7 @@
     <Button
         android:text="@string/Favourites"
         android:background="@color/buttonColour"
+        android:foreground="@drawable/ripple_effect"
         android:textColor="#FFFFFF"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
