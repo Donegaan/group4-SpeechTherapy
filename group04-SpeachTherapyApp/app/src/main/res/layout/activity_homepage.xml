@@ -9,19 +9,18 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-
     tools:context="com.example.sweng04.speachtherapyapp.Homepage">
 
 
     <!--Record Button-->
     <Button
         android:layout_width="match_parent"
-        android:layout_height="150sp"
-        android:id="@+id/recButton"
         android:background="@color/buttonColour"
+        android:textColor="#FFFFFF"
+        android:layout_height="120sp"
+        android:id="@+id/recButton"
         android:foreground="@drawable/ripple_effect"
         android:text="@string/make_rec"
-        android:textColor="#FFFFFF"
         android:textSize="30sp"
         android:layout_alignParentTop="true"
         android:onClick="makeRecordClicked"/>
@@ -30,9 +29,9 @@
     <!--All recordings Button-->
     <Button
         android:layout_width="match_parent"
+        android:background="@color/buttonColour"
         android:layout_height="60sp"
         android:id="@+id/allRecs"
-        android:background="@color/buttonColour"
         android:foreground="@drawable/ripple_effect"
         android:text="@string/all_recordings"
         android:textColor="#FFFFFF"
@@ -46,6 +45,7 @@
     <Button
         android:text="@string/exp_rec"
         android:background="@color/buttonColour"
+        android:textSize="25sp"
         android:foreground="@drawable/ripple_effect"
         android:textColor="#FFFFFF"
         android:layout_width="160sp"
@@ -60,6 +60,7 @@
         android:text="@string/edit_rec"
         android:background="@color/buttonColour"
         android:foreground="@drawable/ripple_effect"
+        android:textSize="25sp"
         android:textColor="#FFFFFF"
         android:layout_width="160sp"
         android:layout_height="60sp"
@@ -70,21 +71,20 @@
         android:layout_marginTop="15dp" />
 
     <!--Greetings Button-->
-    <Button
-        android:text="@string/Greetings"
-        android:textColor="#FFFFFF"
-        android:background="@color/buttonColour"
-        android:foreground="@drawable/ripple_effect"
-        android:layout_width="wrap_content"
-        android:layout_height="100sp"
-        android:textSize="25sp"
-        android:id="@+id/button1"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:layout_alignStart="@+id/exportButton"
-        android:layout_alignLeft="@+id/exportButton"
-        android:layout_alignTop="@+id/favButton" />
+    <!--<Button-->
+        <!--android:text="@string/Greetings"-->
+        <!--android:textColor="#FFFFFF"-->
+        <!--android:foreground="@drawable/ripple_effect"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="100sp"-->
+        <!--android:textSize="25sp"-->
+        <!--android:id="@+id/button1"-->
+        <!--android:layout_alignParentBottom="true"-->
+        <!--android:layout_alignParentRight="true"-->
+        <!--android:layout_alignParentEnd="true"-->
+        <!--android:layout_alignStart="@+id/exportButton"-->
+        <!--android:layout_alignLeft="@+id/exportButton"-->
+        <!--android:layout_alignTop="@+id/favButton" />-->
 
     <!--Favourite Button-->
     <Button
@@ -101,8 +101,8 @@
         android:id="@+id/favButton"
         android:textSize="25sp"
         android:layout_alignParentBottom="true"
-        android:layout_alignRight="@+id/editButton"
-        android:layout_alignEnd="@+id/editButton" />
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
 
 
 </RelativeLayout>

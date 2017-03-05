@@ -15,10 +15,12 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".Record"
-            android:label="@string/Recorder"/>
+        <activity
+            android:name=".Record"
+            android:label="@string/Recorder" />
         <activity android:name=".Categories" />
         <activity android:name=".AddCategory" />
+        <activity android:name=".stopRecording"></activity>
     </application>
 
 </manifest>

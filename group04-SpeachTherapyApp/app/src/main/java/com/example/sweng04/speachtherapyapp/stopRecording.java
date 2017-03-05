@@ -5,22 +5,16 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 
-public class Record extends AppCompatActivity {
+public class stopRecording extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_record);
-        Intent record = getIntent();
+        setContentView(R.layout.activity_stop_recording);
     }
 
     public void backToHome(View view){ // Back button
         Intent intent = new Intent(this,Homepage.class);
-        startActivity(intent);
-    }
-
-    public void recording(View view){
-        Intent intent = new Intent(this,stopRecording.class);
         startActivity(intent);
     }
 }
