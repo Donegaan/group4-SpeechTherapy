@@ -20,7 +20,6 @@
             android:label="@string/Recorder" />
         <activity android:name=".Categories" />
         <activity android:name=".AddCategory" />
-        <activity android:name=".stopRecording"></activity>
     </application>
 
 </manifest>

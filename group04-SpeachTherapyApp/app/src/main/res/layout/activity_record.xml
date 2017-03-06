@@ -18,7 +18,7 @@
         app:srcCompat="@android:drawable/ic_btn_speak_now"
         android:tint="#FFFFFF"
         android:layout_marginTop="99dp"
-        android:id="@+id/imageView"
+        android:id="@+id/start_rec"
         android:layout_alignParentTop="true"
         android:elevation="3dp"
         android:layout_centerHorizontal="true" />
@@ -26,22 +26,22 @@
 
     <!-- Record voice button-->
     <Button
-        android:text="@string/rec"
-        android:background="@color/buttonColour"
+        android:id="@+id/record"
         android:layout_width="fill_parent"
         android:layout_height="400sp"
-        android:layout_weight="1"
-        android:id="@+id/button2"
-        android:textSize="40sp"
-        android:elevation="0dp"
-        android:gravity="bottom|center"
-        android:paddingBottom="70sp"
-        android:textColor="@android:color/white"
-        android:foreground="@drawable/ripple_effect"
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:onClick="recording"/>
+        android:layout_weight="1"
+        android:background="@color/buttonColour"
+        android:elevation="0dp"
+        android:foreground="@drawable/ripple_effect"
+        android:gravity="bottom|center"
+        android:onClick="recording"
+        android:paddingBottom="70sp"
+        android:text="@string/rec"
+        android:textColor="@android:color/white"
+        android:textSize="40sp" />
 
     <!--Back Button-->
     <Button
