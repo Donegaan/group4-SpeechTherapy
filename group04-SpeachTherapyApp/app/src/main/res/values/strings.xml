@@ -1,10 +1,16 @@
 <resources>
     <string name="app_name">SpeachTherapyApp</string>
     <string name="title_activity_record">Record</string>
+    <string name="Recordings">Recordings</string>
     <string name="all_recordings">All Recordings</string>
-    <string name="edit_rec">Edit Recordings</string>
-    <string name="exp_rec">Export Recordings</string>
+    <string name="edit_rec">Edit</string>
+    <string name="exp_rec">Export</string>
     <string name="rec">Tap to Record</string>
     <string name="Favourites">Favourites</string>
     <string name="Greetings">Greetings</string>
+    <string name="make_rec">Make a Recording</string>
+    <string name="Recorder">Recorder</string>
+    <string name="Home">Home</string>
+    <string name="RecName">Enter recording name</string>
+    <string name="StopRec">Tap to stop Recording</string>
 </resources>
