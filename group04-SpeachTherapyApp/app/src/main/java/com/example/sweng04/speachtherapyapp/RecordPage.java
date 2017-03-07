@@ -8,7 +8,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 
-public class Record extends AppCompatActivity {
+public class RecordPage extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
