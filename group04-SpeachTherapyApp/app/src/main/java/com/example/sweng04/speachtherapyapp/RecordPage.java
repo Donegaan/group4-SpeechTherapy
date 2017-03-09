@@ -13,11 +13,13 @@ public class RecordPage extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_record);
-        Intent record = getIntent();
+        setContentView(R.layout.activity_record_page);
     }
 
     public void backToHome(View view){ // Back button
+        if (!firstPress){
+            //end recording and delete it.
+        }
         Intent intent = new Intent(this,Homepage.class);
         startActivity(intent);
     }
@@ -31,7 +33,8 @@ public class RecordPage extends AppCompatActivity {
             Button btn = (Button) findViewById(R.id.record);
             btn.setBackgroundColor(Color.RED);
         }else{ // This is where the code to end the recording will be.
-            
+            Intent intent = new Intent(this, EditNewRecording.class);
+            startActivity(intent);
         }
     }
 

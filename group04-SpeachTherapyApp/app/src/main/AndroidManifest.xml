@@ -20,6 +20,10 @@
             android:label="@string/Recorder" />
         <activity android:name=".Categories" />
         <activity android:name=".AddCategory" />
+        <activity
+            android:name=".EditNewRecording"
+            android:label="@string/title_activity_edit_new_recording" />
+        <activity android:name=".RecordPage" />
     </application>
 
 </manifest>
