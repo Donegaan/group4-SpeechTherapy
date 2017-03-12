@@ -13,7 +13,7 @@ import android.app.ActionBar.LayoutParams;
 public class AddCategory extends AppCompatActivity {
     private LinearLayout mLayout;
     private EditText mEditText;
-    private Button mButton
+    private Button mButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,7 +37,7 @@ public class AddCategory extends AppCompatActivity {
     }
 
     private TextView createNewTextView(String text) {
-        final LayoutParams lparams = new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
+        final LayoutParams lparams = new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT);
         final Button textView = new Button(this);
         textView.setLayoutParams(lparams);
         textView.setText(text);
