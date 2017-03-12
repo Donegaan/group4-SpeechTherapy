@@ -70,7 +70,7 @@
         android:foreground="@drawable/ripple_effect"
         android:text="@string/Categories"
         android:textColor="#FFFFFF"
-        android:textSize="25sp" />
+        android:textSize="25sp"/>
 
     <!--Favourite Button-->
     <Button

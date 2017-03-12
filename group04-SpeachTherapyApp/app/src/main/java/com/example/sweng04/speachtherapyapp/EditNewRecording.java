@@ -106,7 +106,8 @@ public class EditNewRecording extends AppCompatActivity implements OnItemClickLi
                 //Play back recording
                 break;
             case 2:
-                //Delete Recording
+                //Delete Recording. Will make alert dialog for this.
+                break;
             case 3:
                 Intent intent1 = new Intent(this, RecordPage.class);
                 startActivity(intent1);
@@ -119,6 +120,7 @@ public class EditNewRecording extends AppCompatActivity implements OnItemClickLi
                 Toast.makeText(this, "Recording Saved", Toast.LENGTH_LONG).show();
                 Intent intent = new Intent(this,Homepage.class);
                 startActivity(intent);
+                break;
         }
     }
 }
