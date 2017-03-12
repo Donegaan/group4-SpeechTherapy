@@ -23,23 +23,10 @@
         android:text="@string/make_rec"
         android:textSize="30sp"
         android:layout_alignParentTop="true"
-        android:onClick="makeRecordClicked"/>
+        android:onClick="makeRecording"/>
 
 
-    <!--All recordings Button-->
-    <Button
-        android:layout_width="match_parent"
-        android:background="@color/buttonColour"
-        android:layout_height="60sp"
-        android:id="@+id/allRecs"
-        android:foreground="@drawable/ripple_effect"
-        android:text="@string/all_recordings"
-        android:textColor="#FFFFFF"
-        android:textSize="25sp"
-        android:layout_marginTop="16dp"
-        android:layout_below="@+id/exportButton"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"/>
+
 
     <!--Export Button-->
     <Button
@@ -70,21 +57,20 @@
         android:layout_alignParentStart="true"
         android:layout_marginTop="15dp" />
 
-    <!--Greetings Button-->
-    <!--<Button-->
-        <!--android:text="@string/Greetings"-->
-        <!--android:textColor="#FFFFFF"-->
-        <!--android:foreground="@drawable/ripple_effect"-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="100sp"-->
-        <!--android:textSize="25sp"-->
-        <!--android:id="@+id/button1"-->
-        <!--android:layout_alignParentBottom="true"-->
-        <!--android:layout_alignParentRight="true"-->
-        <!--android:layout_alignParentEnd="true"-->
-        <!--android:layout_alignStart="@+id/exportButton"-->
-        <!--android:layout_alignLeft="@+id/exportButton"-->
-        <!--android:layout_alignTop="@+id/favButton" />-->
+    <!--Categories Button-->
+    <Button
+        android:id="@+id/allRecs"
+        android:layout_width="match_parent"
+        android:layout_height="125sp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/exportButton"
+        android:layout_marginTop="16dp"
+        android:background="@color/buttonColour"
+        android:foreground="@drawable/ripple_effect"
+        android:text="@string/Categories"
+        android:textColor="#FFFFFF"
+        android:textSize="25sp" />
 
     <!--Favourite Button-->
     <Button
@@ -93,7 +79,7 @@
         android:foreground="@drawable/ripple_effect"
         android:textColor="#FFFFFF"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="125sp"
         android:layout_below="@+id/allRecs"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"

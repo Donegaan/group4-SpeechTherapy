@@ -13,8 +13,8 @@ public class Homepage extends AppCompatActivity {
         setContentView(R.layout.activity_homepage);
     }
 
-    public void makeRecordClicked(View view){
-        Intent intent = new Intent(this, Record.class);
+    public void makeRecording(View view){
+        Intent intent = new Intent(this,RecordPage.class);
         startActivity(intent);
     }
 
