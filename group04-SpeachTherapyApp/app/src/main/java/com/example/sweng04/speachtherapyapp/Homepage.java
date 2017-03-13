@@ -18,7 +18,10 @@ public class Homepage extends AppCompatActivity {
         startActivity(intent);
     }
 
-
+    public void viewCategories(View view){
+        Intent intent = new Intent(this, AddCategory.class);
+        startActivity(intent);
+    }
 
 
 

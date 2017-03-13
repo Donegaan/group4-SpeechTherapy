@@ -33,10 +33,6 @@ public class EditNewRecording extends AppCompatActivity implements OnItemClickLi
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_new_recording);
 
-        //Resources res = getResources();
-
-        //settingsArray = res.getStringArray(R.array.settingsArray);
-
         ListView listView = (ListView) findViewById(R.id.edit_new_list); // Display Edit settings for new recording.
 
         MyAdapter adapter = new MyAdapter();
