@@ -1,28 +1,40 @@
 package com.example.sweng04.speachtherapyapp.Record;
 
-import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 
-import com.example.sweng04.speachtherapyapp.R;
+import android.media.MediaRecorder;
+import java.io.IOException;
+import android.util.Log;
 
-public class Record extends AppCompatActivity {
-    ExtAudioRecorder extAudioRecorder;
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_record_page);
-    }
+
+public class Record{
+    private MediaRecorder recorder = null;
+    private String filepath = null;
 
     public void startRecording(String recording_destination){
-        extAudioRecorder = ExtAudioRecorder.getInstance(false); // Uncompressed recording (WAV)
-
-        extAudioRecorder.setOutputFile( recording_destination );
-        extAudioRecorder.prepare();
-        extAudioRecorder.start();
+        filepath = recording_destination;
+        recorder = new MediaRecorder();
+        recorder.setAudioSource(MediaRecorder.AudioSource.MIC);
+        recorder.setOutputFormat(MediaRecorder.OutputFormat.MPEG_4);
+        recorder.setAudioEncoder(MediaRecorder.AudioEncoder.AAC);
+        //recorder.setAudioEncoder(MediaRecorder.getAudioSourceMax());
+        recorder.setAudioEncodingBitRate(16);
+        recorder.setAudioSamplingRate(44100);
+        recorder.setOutputFile(filepath);
+        try {
+            recorder.prepare();
+        } catch (IOException e) {
+            Log.e("Recording", "prepare() failed");
+        }
+        recorder.start();
     }
 
-    private void stopRecording() throws Exception{
-        extAudioRecorder.stop();
-        extAudioRecorder.release();
+    public void stopRecording() throws Exception{
+        recorder.stop();
+        recorder.release();
+        recorder = null;
+    }
+
+    public String getLocation(){
+        return filepath;
     }
 }
