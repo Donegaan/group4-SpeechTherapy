@@ -1,16 +1,12 @@
 package com.example.sweng04.speachtherapyapp;
 
-import android.content.Context;
 import android.content.Intent;
-import android.content.res.Resources;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -19,7 +15,8 @@ import android.widget.ListView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.TextView;
 import android.widget.Toast;
-
+import android.media.MediaPlayer;
+import android.net.Uri;
 
 public class EditNewRecording extends AppCompatActivity implements OnItemClickListener {
 
@@ -100,6 +97,14 @@ public class EditNewRecording extends AppCompatActivity implements OnItemClickLi
                 break;
             case 1:
                 //Play back recording
+                MediaPlayer playback = MediaPlayer.create(this, Uri.parse(getExternalFilesDir(null).getAbsolutePath() +"/lol.m4a"));
+                playback.setLooping(true);
+                playback.setOnCompletionListener(new MediaPlayer.OnCompletionListener(){
+                    public void onCompletion(MediaPlayer mp) {
+                        mp.release();
+                    }
+                });
+                playback.start();
                 break;
             case 2:
                 //Delete Recording. Will make alert dialog for this.
