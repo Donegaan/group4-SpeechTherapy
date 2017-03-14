@@ -19,6 +19,11 @@ public class RecordPage extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_record_page);
+        //path for this should be in a settings file somewhere
+        //and filename randomly generated
+        String filefullpath = getExternalFilesDir(null).getAbsolutePath() +"/lol.m4a";
+        Log.e(ExtAudioRecorder.class.getName(),filefullpath);
+        recordObject.setup(filefullpath);
     }
 
     public void backToHome(View view){ // Back button
@@ -38,12 +43,7 @@ public class RecordPage extends AppCompatActivity {
             img.setImageResource(R.drawable.stop_button);
             Button btn = (Button) findViewById(R.id.record);
             btn.setBackgroundColor(Color.RED);
-
-            //path for this should be in a settings file somewhere
-            //and filename randomly generated
-            String filefullpath = getExternalFilesDir(null).getAbsolutePath() +"/lol.m4a";
-            Log.e(ExtAudioRecorder.class.getName(),filefullpath);
-            recordObject.startRecording(filefullpath);
+            recordObject.startRecording();
         }else{ // This is where the code to end the recording will be.
             try {
                 recordObject.stopRecording();

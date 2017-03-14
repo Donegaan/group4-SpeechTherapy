@@ -10,21 +10,23 @@ public class Record{
     private MediaRecorder recorder = null;
     private String filepath = null;
 
-    public void startRecording(String recording_destination){
-        filepath = recording_destination;
+    public void setup(String recording_destination){
         recorder = new MediaRecorder();
         recorder.setAudioSource(MediaRecorder.AudioSource.MIC);
         recorder.setOutputFormat(MediaRecorder.OutputFormat.MPEG_4);
-        recorder.setAudioEncoder(MediaRecorder.AudioEncoder.AAC);
+        recorder.setAudioEncoder(MediaRecorder.AudioEncoder.AMR_NB);
         //recorder.setAudioEncoder(MediaRecorder.getAudioSourceMax());
         recorder.setAudioEncodingBitRate(16);
         recorder.setAudioSamplingRate(44100);
+        filepath = recording_destination;
         recorder.setOutputFile(filepath);
         try {
             recorder.prepare();
         } catch (IOException e) {
             Log.e("Recording", "prepare() failed");
         }
+    }
+    public void startRecording(){
         recorder.start();
     }
 
