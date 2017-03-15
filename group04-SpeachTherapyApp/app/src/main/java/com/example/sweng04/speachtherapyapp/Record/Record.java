@@ -14,9 +14,9 @@ public class Record{
         recorder = new MediaRecorder();
         recorder.setAudioSource(MediaRecorder.AudioSource.MIC);
         recorder.setOutputFormat(MediaRecorder.OutputFormat.MPEG_4);
-        recorder.setAudioEncoder(MediaRecorder.AudioEncoder.AMR_NB);
+        recorder.setAudioEncoder(MediaRecorder.AudioEncoder.AAC);
         //recorder.setAudioEncoder(MediaRecorder.getAudioSourceMax());
-        recorder.setAudioEncodingBitRate(16);
+        recorder.setAudioEncodingBitRate(128000);
         recorder.setAudioSamplingRate(44100);
         filepath = recording_destination;
         recorder.setOutputFile(filepath);
