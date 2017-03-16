@@ -38,10 +38,10 @@ public class AddCategory extends AppCompatActivity {
 
     private TextView createNewTextView(String text) {
         final LayoutParams lparams = new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT);
-        final Button textView = new Button(this);
-        textView.setLayoutParams(lparams);
-        textView.setText(text);
-        return textView;
+        final Button categoryView = new Button(this);
+        categoryView.setLayoutParams(lparams);
+        categoryView.setText(text);
+        return categoryView;
     }
 
 }
