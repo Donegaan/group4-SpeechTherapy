@@ -1,9 +1,12 @@
 package com.example.sweng04.speachtherapyapp;
 
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.support.v4.app.NavUtils;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -18,9 +21,8 @@ import android.widget.Toast;
 import android.media.MediaPlayer;
 import android.net.Uri;
 
-public class EditNewRecording extends AppCompatActivity implements OnItemClickListener {
+public class EditRecording extends AppCompatActivity implements OnItemClickListener {
 
-    //String [] settingsArray;
     String[] settingsArray = {"Name Recording", "Preview Recording", "Delete Recording", "Record Again","Add to a Category",
             "Save Recording"};
     int [] icons = {R.drawable.name_rec,R.drawable.play_button,R.drawable.delete_button,R.drawable.replay_rec,R.drawable.add_button,
@@ -36,11 +38,11 @@ public class EditNewRecording extends AppCompatActivity implements OnItemClickLi
 
         listView.setAdapter(adapter);
 
-        listView.setOnItemClickListener(EditNewRecording.this);
+        listView.setOnItemClickListener(this);
 
     }
 
-    class MyAdapter extends BaseAdapter{
+    class MyAdapter extends BaseAdapter{ // Adapter for the list view of all the settings.
 
 
         @Override
@@ -72,26 +74,29 @@ public class EditNewRecording extends AppCompatActivity implements OnItemClickLi
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        switch (position){ // Does something according to what setting is selected.
+//        final DatabaseOperations db = new DatabaseOperations(this);
+//        db.getWritableDatabase();
+//        final DatabaseOperations.Record rec = new DatabaseOperations.Record();
+//        db.createRecord(rec);
+        switch (position) { // Does something according to what setting is selected.
             case 0: // Name the new recording the user made
-                final AlertDialog.Builder nameBuilder = new AlertDialog.Builder(EditNewRecording.this); // Dialog box to enter new name.
-                View nameView = getLayoutInflater().inflate(R.layout.name_recording,null);
+                final AlertDialog.Builder nameBuilder = new AlertDialog.Builder(EditRecording.this); // Dialog box to enter new name.
+                View nameView = getLayoutInflater().inflate(R.layout.name_recording, null);
                 final EditText nameRec = (EditText) nameView.findViewById(R.id.name_rec_box);
                 Button saveName = (Button) nameView.findViewById(R.id.save_name);
                 nameBuilder.setView(nameView);
                 final AlertDialog dialog = nameBuilder.create();
                 dialog.show();
-
                 saveName.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        if (!nameRec.getText().toString().isEmpty()){
-                            Toast.makeText(EditNewRecording.this, "Recording name saved", Toast.LENGTH_LONG).show();
+                        if (!nameRec.getText().toString().isEmpty()) {
+                            Toast.makeText(EditRecording.this, "Recording name saved", Toast.LENGTH_LONG).show();
+                            //rec.setRecName(nameRec.toString()); // Save recording name
                             dialog.dismiss();
-                        }else{
-                            Toast.makeText(EditNewRecording.this,"Enter a recording name",Toast.LENGTH_LONG).show();
+                        } else {
+                            Toast.makeText(EditRecording.this, "Enter a recording name", Toast.LENGTH_LONG).show();
                         }
-
                     }
                 });
                 break;
@@ -107,23 +112,60 @@ public class EditNewRecording extends AppCompatActivity implements OnItemClickLi
                 playback.start();
                 break;
             case 2:
-                //Delete Recording. Will make alert dialog for this.
+                AlertDialog.Builder alert = new AlertDialog.Builder(this); // Delete alert dialog
+                alert.setTitle("Delete Recording");
+                alert.setMessage("Are you sure you want to delete?");
+                alert.setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+
+                    public void onClick(DialogInterface dialog, int which) {
+                        // continue with delete
+                        //db.deleteRec(rec.id);
+                    }
+                });
+                alert.setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        // close dialog
+                        dialog.cancel();
+                    }
+                });
+                alert.show();
                 break;
             case 3:
-                Intent intent1 = new Intent(this, RecordPage.class);
-                startActivity(intent1);
+                AlertDialog.Builder alert2 = new AlertDialog.Builder(this); // Record again alert dialog
+                alert2.setTitle("Record again");
+                alert2.setMessage("Are you sure you want to record again and delete the current recording?");
+                alert2.setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+
+                    public void onClick(DialogInterface dialog, int which) {
+                        // continue with delete
+                        //db.deleteRec(rec.id);
+                        Intent intent1 = new Intent(EditRecording.this, RecordPage.class); // Record again
+                        startActivity(intent1);
+                    }
+                });
+                alert2.setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        // close dialog
+                        dialog.cancel();
+                    }
+                });
+                alert2.show();
                 break;
             case 4:
                 //Add to a category
+                Intent intent2 = new Intent(this, AddRecToCat.class);
+                startActivity(intent2);
                 break;
             case 5:
                 //Save the recording and go back to home screen.
+
                 Toast.makeText(this, "Recording Saved", Toast.LENGTH_LONG).show();
-                Intent intent = new Intent(this,Homepage.class);
+                Intent intent = new Intent(this, Homepage.class);
                 startActivity(intent);
                 break;
         }
     }
+
 }
 
 

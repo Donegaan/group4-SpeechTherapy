@@ -496,12 +496,12 @@ public class ExtAudioRecorder {
      }*/
 
 
-                    if (payloadSize > 0) {
-                        Conv2Freq conv2freq = new Conv2Freq(payloadSize, bySrcBuf, 44100, (short) 16, (short) 1);
-                        conv2freq.CalcConv2Freq();
-                        byPattern = conv2freq.GetPattern();
-                        iSigQual = conv2freq.GetSignalQuality();
-                    }
+//                    if (payloadSize > 0) {
+//                        Conv2Freq conv2freq = new Conv2Freq(payloadSize, bySrcBuf, 44100, (short) 16, (short) 1);
+//                        conv2freq.CalcConv2Freq();
+//                        byPattern = conv2freq.GetPattern();
+//                        iSigQual = conv2freq.GetSignalQuality();
+//                    }
 
                     // ------ bhu: End ------
 

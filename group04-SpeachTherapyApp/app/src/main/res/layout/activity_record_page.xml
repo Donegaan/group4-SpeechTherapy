@@ -21,7 +21,8 @@
         android:id="@+id/start_rec"
         android:layout_alignParentTop="true"
         android:elevation="3dp"
-        android:layout_centerHorizontal="true" />
+        android:layout_centerHorizontal="true"
+        android:contentDescription="" />
 
 
     <!-- Record voice button-->
@@ -32,7 +33,6 @@
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_weight="1"
         android:background="@color/buttonColour"
         android:elevation="0dp"
         android:foreground="@drawable/ripple_effect"
@@ -43,32 +43,32 @@
         android:textColor="@android:color/white"
         android:textSize="40sp" />
 
-    <!--Back Button-->
-    <Button
-        android:text="@string/Home"
-        android:background="@color/buttonColour"
-        android:foreground="@drawable/ripple_effect"
-        android:textColor="@android:color/white"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/backButton"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:onClick="backToHome"/>
+    <!--&lt;!&ndash;Back Button&ndash;&gt;-->
+    <!--<Button-->
+        <!--android:text="@string/Home"-->
+        <!--android:background="@color/buttonColour"-->
+        <!--android:foreground="@drawable/ripple_effect"-->
+        <!--android:textColor="@android:color/white"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:id="@+id/backButton"-->
+        <!--android:layout_alignParentTop="true"-->
+        <!--android:layout_alignParentLeft="true"-->
+        <!--android:layout_alignParentStart="true"-->
+        <!--android:onClick="backToHome"/>-->
 
-    <!--Recordings Button-->
-    <Button
-        android:text="@string/Recordings"
-        android:background="@color/buttonColour"
-        android:foreground="@drawable/ripple_effect"
-        android:textColor="@android:color/white"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/backButton"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:id="@+id/allRecordings" />
+    <!--&lt;!&ndash;Recordings Button&ndash;&gt;-->
+    <!--<Button-->
+        <!--android:text="@string/Recordings"-->
+        <!--android:background="@color/buttonColour"-->
+        <!--android:foreground="@drawable/ripple_effect"-->
+        <!--android:textColor="@android:color/white"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_alignBottom="@+id/backButton"-->
+        <!--android:layout_alignParentRight="true"-->
+        <!--android:layout_alignParentEnd="true"-->
+        <!--android:id="@+id/allRecordings" />-->
 
 
 </RelativeLayout>

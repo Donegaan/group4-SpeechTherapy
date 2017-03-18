@@ -23,6 +23,15 @@ public class Homepage extends AppCompatActivity {
         startActivity(intent);
     }
 
+    public void viewFavourite(View view){
+        // Show list of favourite recordings.
+    }
+
+    public void edit (View view){
+        Intent intent = new Intent(this, Edit.class);
+        startActivity(intent);
+    }
+
 
 
 }

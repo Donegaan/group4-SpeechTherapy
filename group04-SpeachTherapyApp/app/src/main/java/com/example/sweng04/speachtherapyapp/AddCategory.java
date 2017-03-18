@@ -1,7 +1,9 @@
 package com.example.sweng04.speachtherapyapp;
 
+import android.support.v4.app.NavUtils;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -25,7 +27,20 @@ public class AddCategory extends AppCompatActivity {
         mButton.setOnClickListener(onClick());
         TextView textView = new TextView(this);
         textView.setText("New text");
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
+
+    @Override // Goes to parent activity - Back button
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            // Respond to the action bar's Up/Home button
+            case android.R.id.home:
+                NavUtils.navigateUpFromSameTask(this);
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
     private OnClickListener onClick() {
         return new OnClickListener() {
 
