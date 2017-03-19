@@ -13,17 +13,20 @@ import android.widget.ImageView;
 import com.example.sweng04.speachtherapyapp.Record.Record;
 
 public class RecordPage extends AppCompatActivity {
-
     Record recordObject = new Record();
+    String filename = "";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_record_page);
+        RandomString randStringGenerator = new RandomString(6);
+        filename = randStringGenerator.nextString();
+        //TODO: add a check to make sure filename doesn't already exist in db
         //path for this should be in a settings file somewhere
-        //and filename randomly generated
-//        String filefullpath = getExternalFilesDir(null).getAbsolutePath() +"/lol.m4a";
-//        Log.e(ExtAudioRecorder.class.getName(),filefullpath);
-//        recordObject.setup(filefullpath);
+        String filefullpath = getExternalFilesDir(null).getAbsolutePath() +"/" + filename + ".m4a";
+        //Log.e(ExtAudioRecorder.class.getName(),filefullpath);
+        recordObject.setup(filefullpath);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 
@@ -40,6 +43,12 @@ public class RecordPage extends AppCompatActivity {
 
     public void backToHome(View view){ // Back button
         if (!firstPress){
+            try {
+                recordObject.stopRecording();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            //TODO: Delete
             //end recording and delete it.
         }
         Intent intent = new Intent(this,Homepage.class);
@@ -55,7 +64,7 @@ public class RecordPage extends AppCompatActivity {
             img.setImageResource(R.drawable.stop_button);
             Button btn = (Button) findViewById(R.id.record);
             btn.setBackgroundColor(Color.RED);
-            //recordObject.startRecording();
+            recordObject.startRecording();
         }else{ // This is where the code to end the recording will be.
             try {
                 recordObject.stopRecording();
@@ -63,10 +72,9 @@ public class RecordPage extends AppCompatActivity {
                 e.printStackTrace();
             }
             Intent intent = new Intent(this, EditRecording.class);
+            intent.putExtra("FILENAME", filename); // passes the filename to the next page
             startActivity(intent);
             firstPress=true;
         }
     }
-
-
 }

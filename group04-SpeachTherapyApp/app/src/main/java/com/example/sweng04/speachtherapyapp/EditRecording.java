@@ -6,6 +6,7 @@ import android.support.v4.app.NavUtils;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,25 +22,25 @@ import android.widget.Toast;
 import android.media.MediaPlayer;
 import android.net.Uri;
 
+import java.io.File;
+
 public class EditRecording extends AppCompatActivity implements OnItemClickListener {
 
     String[] settingsArray = {"Name Recording", "Preview Recording", "Delete Recording", "Record Again","Add to a Category",
             "Save Recording"};
     int [] icons = {R.drawable.name_rec,R.drawable.play_button,R.drawable.delete_button,R.drawable.replay_rec,R.drawable.add_button,
             R.drawable.save_rec};
+    String filename = "";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_new_recording);
-
         ListView listView = (ListView) findViewById(R.id.edit_new_list); // Display Edit settings for new recording.
-
         MyAdapter adapter = new MyAdapter();
-
         listView.setAdapter(adapter);
-
         listView.setOnItemClickListener(this);
-
+        filename = getIntent().getStringExtra("FILENAME"); // getting filename we are editing
     }
 
     class MyAdapter extends BaseAdapter{ // Adapter for the list view of all the settings.
@@ -102,7 +103,8 @@ public class EditRecording extends AppCompatActivity implements OnItemClickListe
                 break;
             case 1:
                 //Play back recording
-                MediaPlayer playback = MediaPlayer.create(this, Uri.parse(getExternalFilesDir(null).getAbsolutePath() +"/lol.m4a"));
+                Log.e("PLayback filename", filename);
+                MediaPlayer playback = MediaPlayer.create(this, Uri.parse(getExternalFilesDir(null).getAbsolutePath() +"/"+filename+".m4a"));
                 playback.setLooping(true);
                 playback.setOnCompletionListener(new MediaPlayer.OnCompletionListener(){
                     public void onCompletion(MediaPlayer mp) {
@@ -118,6 +120,12 @@ public class EditRecording extends AppCompatActivity implements OnItemClickListe
                 alert.setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
 
                     public void onClick(DialogInterface dialog, int which) {
+                        File file = new File(Uri.parse(getExternalFilesDir(null).getAbsolutePath() +"/"+filename+".m4a").getPath());
+                        file.delete();
+                        if(file.exists()){
+                            getApplicationContext().deleteFile(file.getName());
+                        }
+                        //TODO: Delete from DB
                         // continue with delete
                         //db.deleteRec(rec.id);
                     }
@@ -158,7 +166,6 @@ public class EditRecording extends AppCompatActivity implements OnItemClickListe
                 break;
             case 5:
                 //Save the recording and go back to home screen.
-
                 Toast.makeText(this, "Recording Saved", Toast.LENGTH_LONG).show();
                 Intent intent = new Intent(this, Homepage.class);
                 startActivity(intent);
