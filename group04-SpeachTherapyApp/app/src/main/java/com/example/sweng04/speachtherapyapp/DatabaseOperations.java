@@ -33,7 +33,8 @@ public class DatabaseOperations extends SQLiteOpenHelper {
 
     //---||||||| TABLE CREATION |||||||---
     private static final String CREATE_TABLE_CAT = "CREATE TABLE "
-            + TABLE_CATEGORY + " (" + CAT_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " + CAT_NAME ;
+            + TABLE_CATEGORY + " (" + CAT_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
+            + CAT_NAME + " TEXT )" ;
     //---||||||| END OF TABLE CREATION |||||||---
 
     //-----------------RECORDING TABLE-----------------
@@ -44,7 +45,8 @@ public class DatabaseOperations extends SQLiteOpenHelper {
 
     //---||||||| TABLE CREATION |||||||---
     private static final String CREATE_TABLE_REC = "CREATE TABLE "
-            + TABLE_RECORDING + " (" + REC_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " + REC_NAME ;
+            + TABLE_RECORDING + " (" + REC_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
+            + REC_NAME + " TEXT )" ;
     //---||||||| END OF TABLE CREATION |||||||---
 
     //-----------------CAT - REC TABLE-----------------
