@@ -41,9 +41,9 @@
         <activity
             android:name=".EditRecording"
             android:label="@string/title_activity_edit_new_recording">
-            <!--<meta-data-->
-                <!--android:name="android.support.PARENT_ACTIVITY"-->
-                <!--android:value="com.example.sweng04.speachtherapyapp.RecordPage" />-->
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.sweng04.speachtherapyapp.RecordPage" />
         </activity>
         <activity
             android:name=".AddRecToCat"
@@ -59,7 +59,13 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.example.sweng04.speachtherapyapp.Homepage" />
         </activity>
-        <activity android:name=".EditCategory"></activity>
+        <activity android:name=".EditCategory" />
+        <activity android:name=".Recordings"
+            android:label="@string/Recordings">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.sweng04.speachtherapyapp.Homepage" />
+        </activity>
     </application>
 
 </manifest>

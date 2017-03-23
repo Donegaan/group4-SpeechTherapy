@@ -26,7 +26,8 @@ public class RecordPage extends AppCompatActivity {
         //path for this should be in a settings file somewhere
         String filefullpath = getExternalFilesDir(null).getAbsolutePath() +"/" + filename + ".m4a";
         //Log.e(ExtAudioRecorder.class.getName(),filefullpath);
-        recordObject.setup(filefullpath);
+        //TODO Uncomment this
+        //recordObject.setup(filefullpath);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 
@@ -64,15 +65,22 @@ public class RecordPage extends AppCompatActivity {
             img.setImageResource(R.drawable.stop_button);
             Button btn = (Button) findViewById(R.id.record);
             btn.setBackgroundColor(Color.RED);
-            recordObject.startRecording();
+            //TODO Uncomment this
+            //recordObject.startRecording();
         }else{ // This is where the code to end the recording will be.
-            try {
-                recordObject.stopRecording();
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
+            //TODO Uncomment this
+//            try {
+//                recordObject.stopRecording();
+//            } catch (Exception e) {
+//                e.printStackTrace();
+//            }
+            ImageView img = (ImageView) findViewById(R.id.start_rec);
+            img.setImageResource(R.drawable.record_button);
+            Button btn = (Button) findViewById(R.id.record);
+            btn.setBackgroundColor(getResources().getColor(R.color.buttonColour));
             Intent intent = new Intent(this, EditRecording.class);
             intent.putExtra("FILENAME", filename); // passes the filename to the next page
+            intent.putExtra("Key", "RecordPage");
             startActivity(intent);
             firstPress=true;
         }

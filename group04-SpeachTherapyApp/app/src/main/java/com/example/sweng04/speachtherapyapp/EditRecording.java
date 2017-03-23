@@ -31,6 +31,7 @@ public class EditRecording extends AppCompatActivity implements OnItemClickListe
     int [] icons = {R.drawable.name_rec,R.drawable.play_button,R.drawable.delete_button,R.drawable.replay_rec,R.drawable.add_button,
             R.drawable.save_rec};
     String filename = "";
+    String key="";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,10 +42,22 @@ public class EditRecording extends AppCompatActivity implements OnItemClickListe
         listView.setAdapter(adapter);
         listView.setOnItemClickListener(this);
         filename = getIntent().getStringExtra("FILENAME"); // getting filename we are editing
+        key = getIntent().getStringExtra("Key");
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+    }
+
+    @Override // Goes to parent activity - Back button
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            // Respond to the action bar's Up/Home button
+            case android.R.id.home:
+                NavUtils.navigateUpFromSameTask(this);
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     class MyAdapter extends BaseAdapter{ // Adapter for the list view of all the settings.
-
 
         @Override
         public int getCount() {
@@ -63,8 +76,9 @@ public class EditRecording extends AppCompatActivity implements OnItemClickListe
 
         @Override
         public View getView (int position, View view, ViewGroup parent){
-            view = getLayoutInflater().inflate(R.layout.edit_rec_row,parent,false);
-
+            if (view==null) {
+                view = getLayoutInflater().inflate(R.layout.edit_rec_row, parent, false);
+            }
             ImageView icon = (ImageView) view.findViewById(R.id.edit_icon);
             TextView setting = (TextView) view.findViewById(R.id.edit_rec_text);
             setting.setText(settingsArray[position]);
@@ -75,10 +89,10 @@ public class EditRecording extends AppCompatActivity implements OnItemClickListe
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-//        final DatabaseOperations db = new DatabaseOperations(this);
-//        db.getWritableDatabase();
-//        final DatabaseOperations.Record rec = new DatabaseOperations.Record();
-//        db.createRecord(rec);
+        final DatabaseOperations db = new DatabaseOperations(this);
+        db.getWritableDatabase();
+        final DatabaseOperations.Record rec = new DatabaseOperations.Record();
+
         switch (position) { // Does something according to what setting is selected.
             case 0: // Name the new recording the user made
                 final AlertDialog.Builder nameBuilder = new AlertDialog.Builder(EditRecording.this); // Dialog box to enter new name.
@@ -93,7 +107,7 @@ public class EditRecording extends AppCompatActivity implements OnItemClickListe
                     public void onClick(View v) {
                         if (!nameRec.getText().toString().isEmpty()) {
                             Toast.makeText(EditRecording.this, "Recording name saved", Toast.LENGTH_LONG).show();
-                            //rec.setRecName(nameRec.toString()); // Save recording name
+                            rec.setRecName(nameRec.toString()); // Save recording name
                             dialog.dismiss();
                         } else {
                             Toast.makeText(EditRecording.this, "Enter a recording name", Toast.LENGTH_LONG).show();
@@ -103,7 +117,7 @@ public class EditRecording extends AppCompatActivity implements OnItemClickListe
                 break;
             case 1:
                 //Play back recording
-                Log.e("PLayback filename", filename);
+                Log.e("Playback filename", filename);
                 MediaPlayer playback = MediaPlayer.create(this, Uri.parse(getExternalFilesDir(null).getAbsolutePath() +"/"+filename+".m4a"));
                 playback.setLooping(true);
                 playback.setOnCompletionListener(new MediaPlayer.OnCompletionListener(){
@@ -118,16 +132,20 @@ public class EditRecording extends AppCompatActivity implements OnItemClickListe
                 alert.setTitle("Delete Recording");
                 alert.setMessage("Are you sure you want to delete?");
                 alert.setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
-
                     public void onClick(DialogInterface dialog, int which) {
                         File file = new File(Uri.parse(getExternalFilesDir(null).getAbsolutePath() +"/"+filename+".m4a").getPath());
                         file.delete();
                         if(file.exists()){
                             getApplicationContext().deleteFile(file.getName());
+                            //db.deleteRec(rec.id);
                         }
                         //TODO: Delete from DB
                         // continue with delete
-                        //db.deleteRec(rec.id);
+                        if (key.equals("RecordPage")) {
+                            startActivity(new Intent(EditRecording.this, RecordPage.class));
+                        }else if (key.equals("Edit")){
+                            //Will go back to previous page to display the list of recordings.
+                        }
                     }
                 });
                 alert.setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
@@ -165,6 +183,7 @@ public class EditRecording extends AppCompatActivity implements OnItemClickListe
                 startActivity(intent2);
                 break;
             case 5:
+                db.createRecord(rec);
                 //Save the recording and go back to home screen.
                 Toast.makeText(this, "Recording Saved", Toast.LENGTH_LONG).show();
                 Intent intent = new Intent(this, Homepage.class);

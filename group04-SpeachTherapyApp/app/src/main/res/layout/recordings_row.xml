@@ -2,24 +2,17 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="horizontal" android:layout_width="match_parent"
     android:layout_height="match_parent">
-    
-    <ImageView
-        android:layout_width="85dp"
-        android:layout_height="85dp"
-        android:padding="5dp"
-        android:foreground="@drawable/ripple_effect"
-        android:background="@android:color/white"
-        android:id="@+id/edit_icon"/>
 
     <TextView
-        android:id="@+id/edit_rec_text"
+        android:id="@+id/rec_text"
         android:foreground="@drawable/ripple_effect"
         android:background="@android:color/white"
         android:textColor="@color/buttonColour"
         android:textSize="25sp"
         android:paddingTop="25dp"
         android:layout_width="0dp"
-        android:layout_height="85dp"
+        android:layout_height="60dp"
+        android:padding="10dp"
         android:layout_weight="1" />
 
 </LinearLayout>

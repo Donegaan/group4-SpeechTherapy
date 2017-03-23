@@ -12,6 +12,9 @@
 
         <Button
             android:id="@+id/button"
+            android:background="@color/buttonColour"
+            android:foreground="@drawable/ripple_effect"
+            android:textColor="@android:color/white"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/add"
