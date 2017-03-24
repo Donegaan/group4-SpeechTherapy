@@ -27,7 +27,7 @@ public class RecordPage extends AppCompatActivity {
         String filefullpath = getExternalFilesDir(null).getAbsolutePath() +"/" + filename + ".m4a";
         //Log.e(ExtAudioRecorder.class.getName(),filefullpath);
         //TODO Uncomment this
-        //recordObject.setup(filefullpath);
+        recordObject.setup(filefullpath);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 
@@ -67,14 +67,14 @@ public class RecordPage extends AppCompatActivity {
             btn.setBackgroundColor(Color.RED);
             btn.setText("Tap to Stop Recording");
             //TODO Uncomment this
-            //recordObject.startRecording();
+            recordObject.startRecording();
         }else{ // This is where the code to end the recording will be.
             //TODO Uncomment this
-//            try {
-//                recordObject.stopRecording();
-//            } catch (Exception e) {
-//                e.printStackTrace();
-//            }
+            try {
+                recordObject.stopRecording();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
 
             Intent intent = new Intent(this, EditRecording.class);
             intent.putExtra("FILENAME", filename); // passes the filename to the next page
