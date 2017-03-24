@@ -65,6 +65,7 @@ public class RecordPage extends AppCompatActivity {
             img.setImageResource(R.drawable.stop_button);
             Button btn = (Button) findViewById(R.id.record);
             btn.setBackgroundColor(Color.RED);
+            btn.setText("Tap to Stop Recording");
             //TODO Uncomment this
             //recordObject.startRecording();
         }else{ // This is where the code to end the recording will be.
@@ -74,14 +75,16 @@ public class RecordPage extends AppCompatActivity {
 //            } catch (Exception e) {
 //                e.printStackTrace();
 //            }
-            ImageView img = (ImageView) findViewById(R.id.start_rec);
-            img.setImageResource(R.drawable.record_button);
-            Button btn = (Button) findViewById(R.id.record);
-            btn.setBackgroundColor(getResources().getColor(R.color.buttonColour));
+
             Intent intent = new Intent(this, EditRecording.class);
             intent.putExtra("FILENAME", filename); // passes the filename to the next page
             intent.putExtra("Key", "RecordPage");
             startActivity(intent);
+            ImageView img = (ImageView) findViewById(R.id.start_rec);
+            img.setImageResource(R.drawable.record_button);
+            Button btn = (Button) findViewById(R.id.record);
+            btn.setBackgroundColor(getResources().getColor(R.color.buttonColour));
+            btn.setText("Tap to Record");
             firstPress=true;
         }
     }

@@ -15,17 +15,17 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Recordings extends AppCompatActivity {
-    List<String>recordings = new ArrayList<String>();
+    ArrayList<DatabaseOperations.Record>recordings = new ArrayList<DatabaseOperations.Record>();
+    final DatabaseOperations db = new DatabaseOperations(this);
     //String[] test = {"Name Recording", "Preview Recording", "Delete Recording", "Record Again","Add to a Category", "Save Recording"};
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_recordings);
+        recordings = db.getAllRecords();
 
         ListView list = (ListView) findViewById(R.id.rec_list);
 
-        recordings.add("Hello");
-        recordings.add("Bye");
 
         recAdapter adapter = new recAdapter();
         list.setAdapter(adapter);
@@ -55,7 +55,9 @@ public class Recordings extends AppCompatActivity {
                 convertView = getLayoutInflater().inflate(R.layout.recordings_row, parent, false);
             }
             TextView recording = (TextView) convertView.findViewById(R.id.rec_text);
-            recording.setText(recordings.get(position));
+            String recordingName = recordings.get(position).getRecName();
+            //Log.d("Recording ID", recordings.get(position).getId()+"");
+            recording.setText(recordingName);
             return convertView;
         }
     }

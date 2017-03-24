@@ -107,7 +107,8 @@ public class EditRecording extends AppCompatActivity implements OnItemClickListe
                     public void onClick(View v) {
                         if (!nameRec.getText().toString().isEmpty()) {
                             Toast.makeText(EditRecording.this, "Recording name saved", Toast.LENGTH_LONG).show();
-                            rec.setRecName(nameRec.toString()); // Save recording name
+                            //Log.d("New Rec name", nameRec.getText().toString());
+                            rec.setRecName(nameRec.getText().toString()); // Save recording name
                             dialog.dismiss();
                         } else {
                             Toast.makeText(EditRecording.this, "Enter a recording name", Toast.LENGTH_LONG).show();
@@ -137,7 +138,7 @@ public class EditRecording extends AppCompatActivity implements OnItemClickListe
                         file.delete();
                         if(file.exists()){
                             getApplicationContext().deleteFile(file.getName());
-                            //db.deleteRec(rec.id);
+                            db.deleteRec(rec.id);
                         }
                         //TODO: Delete from DB
                         // continue with delete

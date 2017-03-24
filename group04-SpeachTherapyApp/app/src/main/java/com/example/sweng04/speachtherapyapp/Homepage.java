@@ -19,12 +19,14 @@ public class Homepage extends AppCompatActivity {
     }
 
     public void viewCategories(View view){
-        Intent intent = new Intent(this, AddCategory.class);
+        Intent intent = new Intent(this, Categories.class);
         startActivity(intent);
     }
 
     public void viewFavourite(View view){
         // Show list of favourite recordings.
+        startActivity(new Intent(this, Recordings.class));
+
     }
 
     public void edit (View view){

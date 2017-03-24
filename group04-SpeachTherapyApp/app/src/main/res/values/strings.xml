@@ -95,5 +95,7 @@
     <string name="name">Name</string>
     <string name="enter_recording_name">Enter recording name</string>
     <string name="save_name">Save Name</string>
-    <string name="add">Add+</string>
+    <string name="add">Add a Category</string>
+    <string name="tap_to_edit_categories">Tap to Edit Categories</string>
+    <string name="category">Category</string>
 </resources>
