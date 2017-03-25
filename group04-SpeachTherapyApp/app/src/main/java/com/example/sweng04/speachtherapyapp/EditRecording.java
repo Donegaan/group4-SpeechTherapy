@@ -119,7 +119,7 @@ public class EditRecording extends AppCompatActivity implements OnItemClickListe
             case 1:
                 //Play back recording
                 Log.e("Playback filename", filename);
-                MediaPlayer playback = MediaPlayer.create(this, Uri.parse(getExternalFilesDir(null).getAbsolutePath() +"/"+filename+".m4a"));
+                MediaPlayer playback = MediaPlayer.create(this, Uri.parse(getExternalFilesDir(null).getAbsolutePath() +"/"+filename+".wav"));
                 playback.setLooping(true);
                 playback.setOnCompletionListener(new MediaPlayer.OnCompletionListener(){
                     public void onCompletion(MediaPlayer mp) {
@@ -134,7 +134,7 @@ public class EditRecording extends AppCompatActivity implements OnItemClickListe
                 alert.setMessage("Are you sure you want to delete?");
                 alert.setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
-                        File file = new File(Uri.parse(getExternalFilesDir(null).getAbsolutePath() +"/"+filename+".m4a").getPath());
+                        File file = new File(Uri.parse(getExternalFilesDir(null).getAbsolutePath() +"/"+filename+".wav").getPath());
                         file.delete();
                         if(file.exists()){
                             getApplicationContext().deleteFile(file.getName());

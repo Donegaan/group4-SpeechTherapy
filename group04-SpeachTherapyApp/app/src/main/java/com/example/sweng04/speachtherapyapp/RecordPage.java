@@ -2,6 +2,8 @@ package com.example.sweng04.speachtherapyapp;
 
 import android.content.Intent;
 import android.graphics.Color;
+import android.media.AudioFormat;
+import android.media.MediaRecorder;
 import android.support.v4.app.NavUtils;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -10,11 +12,21 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 
-import com.example.sweng04.speachtherapyapp.Record.Record;
+import com.example.sweng04.speachtherapyapp.OmRecorder.AudioSource;
+import com.example.sweng04.speachtherapyapp.OmRecorder.PullTransport;
+import com.example.sweng04.speachtherapyapp.OmRecorder.Recorder;
+import com.example.sweng04.speachtherapyapp.OmRecorder.OmRecorder;
+import com.example.sweng04.speachtherapyapp.OmRecorder.AudioChunk;
+import java.io.File;
 
 public class RecordPage extends AppCompatActivity {
-    Record recordObject = new Record();
+    Recorder recorder;
     String filename = "";
+
+    private AudioSource mic() {
+        return new AudioSource.Smart(MediaRecorder.AudioSource.MIC, AudioFormat.ENCODING_PCM_16BIT,
+                AudioFormat.CHANNEL_IN_MONO, 44100);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,10 +36,12 @@ public class RecordPage extends AppCompatActivity {
         filename = randStringGenerator.nextString();
         //TODO: add a check to make sure filename doesn't already exist in db
         //path for this should be in a settings file somewhere
-        String filefullpath = getExternalFilesDir(null).getAbsolutePath() +"/" + filename + ".m4a";
+        String filefullpath = getExternalFilesDir(null).getAbsolutePath() +"/" + filename + ".wav";
         //Log.e(ExtAudioRecorder.class.getName(),filefullpath);
         //TODO Uncomment this
-        recordObject.setup(filefullpath);
+        recorder = OmRecorder.wav(
+                new PullTransport.Default(mic(), new PullTransport.OnAudioChunkPulledListener() {
+                    @Override public void onAudioChunkPulled(AudioChunk audioChunk) {}}), new File(filefullpath));
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 
@@ -45,7 +59,7 @@ public class RecordPage extends AppCompatActivity {
     public void backToHome(View view){ // Back button
         if (!firstPress){
             try {
-                recordObject.stopRecording();
+                recorder.stopRecording();
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -67,11 +81,11 @@ public class RecordPage extends AppCompatActivity {
             btn.setBackgroundColor(Color.RED);
             btn.setText("Tap to Stop Recording");
             //TODO Uncomment this
-            recordObject.startRecording();
+            recorder.startRecording();
         }else{ // This is where the code to end the recording will be.
             //TODO Uncomment this
             try {
-                recordObject.stopRecording();
+                recorder.stopRecording();
             } catch (Exception e) {
                 e.printStackTrace();
             }
