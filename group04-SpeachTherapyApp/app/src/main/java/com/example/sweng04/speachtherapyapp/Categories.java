@@ -28,8 +28,6 @@ public class Categories extends AppCompatActivity {
         mLayout = (LinearLayout) findViewById(R.id.linearLayout);
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
         mEditText = (EditText) findViewById(R.id.editText);
-        addFavouritesCat();
-        addUnassignedCat();
         categories = db.getAllCategories();
         ListView list = (ListView) findViewById(R.id.rec_list);
 
