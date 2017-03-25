@@ -51,11 +51,11 @@ public class DatabaseOperations extends SQLiteOpenHelper {
 
     //-----------------CAT - REC TABLE-----------------
     private static final String CREATE_TABLE_CAT_REC = "CREATE TABLE "
-            + TABLE_CAT_REC + " ( " + CAT_ID + " INTEGER NOT NULL references "
-            + TABLE_CATEGORY + " ( " + CAT_ID + " ), "
-            + REC_ID  + " INTEGER NOT NULL REFERENCES "
-            + TABLE_RECORDING + " (" + REC_ID + "), PRIMARY KEY( "
-            + CAT_ID + ", " + REC_ID + " ))";
+            + TABLE_CAT_REC + " ( " + CAT_ID + " INTEGER NOT NULL REFERENCES "
+            + TABLE_CATEGORY +   " ( " + CAT_ID + " ), "
+            + REC_ID + " INTEGER NOT NULL REFERENCES "
+            + TABLE_RECORDING +  " ( " + REC_ID + " ), "
+            + "PRIMARY KEY( " + CAT_ID + ", " + REC_ID + " ))";
 
     //---- END OF ALL TABLE CREATION ---- END OF ALL TABLE CREATION ---- END OF ALL TABLE CREATION ----
 
@@ -325,9 +325,8 @@ public class DatabaseOperations extends SQLiteOpenHelper {
     public ArrayList<Category> getCatRec(long rec_id){
         ArrayList<Category> categories = new ArrayList<Category>();
         String selectQuery = "SELECT" + TABLE_CATEGORY + "." + CAT_ID + "," + TABLE_CATEGORY + "." + CAT_NAME
-                + " FROM " + TABLE_CAT_REC + ", "+ TABLE_RECORDING + ", "+ TABLE_CATEGORY
+                + " FROM " + TABLE_CAT_REC + ", "+ TABLE_CATEGORY
                 + " WHERE " + TABLE_CAT_REC + "." + REC_ID + " = " + rec_id
-                + " AND " + TABLE_RECORDING + "." + REC_ID + " = " + rec_id
                 + " AND " + TABLE_CATEGORY + "." + CAT_ID + " = " + TABLE_CAT_REC + "." + CAT_ID;
 
         Log.e(LOG, selectQuery);
@@ -352,9 +351,8 @@ public class DatabaseOperations extends SQLiteOpenHelper {
     public ArrayList<Record> getRecCat(long cat_id){
         ArrayList<Record> recordings = new ArrayList<Record>();
         String selectQuery = "SELECT " + TABLE_RECORDING + "." + REC_ID + ", "+ TABLE_RECORDING + "." + REC_NAME
-                + " FROM " + TABLE_CAT_REC + ", " + TABLE_CATEGORY + ", "+ TABLE_RECORDING
+                + " FROM " + TABLE_CAT_REC + ", "+ TABLE_RECORDING
                 + " WHERE " + TABLE_CAT_REC + "." + CAT_ID + " = " + cat_id
-                + " AND " + TABLE_CATEGORY + "." + CAT_ID + " = " + cat_id
                 + " AND " + TABLE_RECORDING + "." + REC_ID + " = " + TABLE_CAT_REC + "." + REC_ID;
 
         Log.e(LOG, selectQuery);
