@@ -26,8 +26,6 @@ public class Categories extends AppCompatActivity {
         setContentView(R.layout.activity_categories);
         mLayout = (LinearLayout) findViewById(R.id.linearLayout);
         mEditText = (EditText) findViewById(R.id.editText);
-        addFavouritesCat();
-        addUnassignedCat();
         categories = db.getAllCategories();
         ListView list = (ListView) findViewById(R.id.rec_list);
 
