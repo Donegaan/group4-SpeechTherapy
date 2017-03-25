@@ -99,4 +99,6 @@
     <string name="add">Add a Category</string>
     <string name="tap_to_edit_categories">Tap to Edit Categories</string>
     <string name="category">Category</string>
+    <string name="enter_category_name">Enter Category Name</string>
+    <string name="name_category">Name Category</string>
 </resources>

@@ -60,7 +60,12 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.example.sweng04.speachtherapyapp.Homepage" />
         </activity>
-        <activity android:name=".EditCategory" />
+        <activity android:name=".EditCategory"
+            android:label="Edit Category">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.sweng04.speachtherapyapp.Edit" />
+        </activity>
         <activity android:name=".Recordings"
             android:label="@string/Recordings">
             <meta-data

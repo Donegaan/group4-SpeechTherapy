@@ -22,11 +22,10 @@ public class Recordings extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_recordings);
-        recordings = db.getAllRecords();
-
+        db.getWritableDatabase();
+        long key = getIntent().getLongExtra("catID",0);
+        recordings=db.getRecCat(key);
         ListView list = (ListView) findViewById(R.id.rec_list);
-
-
         recAdapter adapter = new recAdapter();
         list.setAdapter(adapter);
 

@@ -25,7 +25,7 @@ import android.net.Uri;
 import java.io.File;
 
 public class EditRecording extends AppCompatActivity implements OnItemClickListener {
-
+    final DatabaseOperations db = new DatabaseOperations(EditRecording.this);
     String[] settingsArray = {"Name Recording", "Preview Recording", "Delete Recording", "Record Again","Add to a Category",
             "Save Recording"};
     int [] icons = {R.drawable.name_rec,R.drawable.play_button,R.drawable.delete_button,R.drawable.replay_rec,R.drawable.add_button,
@@ -89,7 +89,7 @@ public class EditRecording extends AppCompatActivity implements OnItemClickListe
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        final DatabaseOperations db = new DatabaseOperations(this);
+
         db.getWritableDatabase();
         final DatabaseOperations.Record rec = new DatabaseOperations.Record();
 
@@ -165,7 +165,7 @@ public class EditRecording extends AppCompatActivity implements OnItemClickListe
 
                     public void onClick(DialogInterface dialog, int which) {
                         // continue with delete
-                        //db.deleteRec(rec.id);
+                        db.deleteRec(rec.id);
                         Intent intent1 = new Intent(EditRecording.this, RecordPage.class); // Record again
                         startActivity(intent1);
                     }

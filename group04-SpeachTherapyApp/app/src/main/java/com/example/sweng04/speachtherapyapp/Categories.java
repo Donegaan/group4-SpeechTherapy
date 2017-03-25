@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.BaseAdapter;
 import android.widget.EditText;
 import android.widget.LinearLayout;
@@ -25,6 +26,7 @@ public class Categories extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_categories);
         mLayout = (LinearLayout) findViewById(R.id.linearLayout);
+        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
         mEditText = (EditText) findViewById(R.id.editText);
         addFavouritesCat();
         addUnassignedCat();
@@ -70,19 +72,16 @@ public class Categories extends AppCompatActivity {
     public void addCatClicked (View view){
         db.getWritableDatabase();
         DatabaseOperations.Category newCat = new DatabaseOperations.Category();
-
         String catName = mEditText.getText().toString();
         newCat.setCatName(catName);
         db.createCategory(newCat);
         categories = db.getAllCategories();
-
-
     }
     //Default Category for unassigned recordings
     public void addUnassignedCat(){
         db.getWritableDatabase();
         DatabaseOperations.Category defaultCat = new DatabaseOperations.Category();
-        String defaultName = getText(R.string.Unassigned);
+        String defaultName = (String)getText(R.string.Unassigned);
         defaultCat.setCatName(defaultName);
         db.createCategory(defaultCat);
     }
@@ -90,7 +89,7 @@ public class Categories extends AppCompatActivity {
     public void addFavouritesCat(){
         db.getWritableDatabase();
         DatabaseOperations.Category favourites = new DatabaseOperations.Category();
-        String favName = getText(R.string.Favourites);
+        String favName = (String)getText(R.string.Favourites);
         favourites.setCatName(favName);
         db.createCategory(favourites);
     }
