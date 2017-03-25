@@ -26,6 +26,8 @@ public class Categories extends AppCompatActivity {
         setContentView(R.layout.activity_categories);
         mLayout = (LinearLayout) findViewById(R.id.linearLayout);
         mEditText = (EditText) findViewById(R.id.editText);
+        addFavouritesCat();
+        addUnassignedCat();
         categories = db.getAllCategories();
         ListView list = (ListView) findViewById(R.id.rec_list);
 
@@ -75,6 +77,22 @@ public class Categories extends AppCompatActivity {
         categories = db.getAllCategories();
 
 
+    }
+    //Default Category for unassigned recordings
+    public void addUnassignedCat(){
+        db.getWritableDatabase();
+        DatabaseOperations.Category defaultCat = new DatabaseOperations.Category();
+        String defaultName = getText(R.string.Unassigned);
+        defaultCat.setCatName(defaultName);
+        db.createCategory(defaultCat);
+    }
+    //Favourites Category
+    public void addFavouritesCat(){
+        db.getWritableDatabase();
+        DatabaseOperations.Category favourites = new DatabaseOperations.Category();
+        String favName = getText(R.string.Favourites);
+        favourites.setCatName(favName);
+        db.createCategory(favourites);
     }
     public void catClicked(View View){
 //        Intent intent = new Intent(this, Recordings.class);
