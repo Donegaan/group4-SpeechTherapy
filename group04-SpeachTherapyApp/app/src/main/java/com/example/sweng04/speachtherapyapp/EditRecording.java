@@ -31,7 +31,8 @@ public class EditRecording extends AppCompatActivity implements OnItemClickListe
     int [] icons = {R.drawable.name_rec,R.drawable.play_button,R.drawable.delete_button,R.drawable.replay_rec,R.drawable.add_button,
             R.drawable.save_rec};
     String filename = "";
-    String key="";
+    String key=""; // For back button
+    int recID;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,6 +44,7 @@ public class EditRecording extends AppCompatActivity implements OnItemClickListe
         listView.setOnItemClickListener(this);
         filename = getIntent().getStringExtra("FILENAME"); // getting filename we are editing
         key = getIntent().getStringExtra("Key");
+        recID = getIntent().getIntExtra("recID",-1);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 
@@ -91,7 +93,12 @@ public class EditRecording extends AppCompatActivity implements OnItemClickListe
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
         db.getWritableDatabase();
-        final DatabaseOperations.Record rec = new DatabaseOperations.Record();
+        final DatabaseOperations.Record rec;
+        if (recID==-1) {
+             rec = new DatabaseOperations.Record();
+        }else{
+            rec = db.getRec(recID);
+        }
 
         switch (position) { // Does something according to what setting is selected.
             case 0: // Name the new recording the user made
@@ -109,6 +116,8 @@ public class EditRecording extends AppCompatActivity implements OnItemClickListe
                             Toast.makeText(EditRecording.this, "Recording name saved", Toast.LENGTH_LONG).show();
                             //Log.d("New Rec name", nameRec.getText().toString());
                             rec.setRecName(nameRec.getText().toString()); // Save recording name
+                            Log.d("Rec name",rec.getRecName());
+
                             dialog.dismiss();
                         } else {
                             Toast.makeText(EditRecording.this, "Enter a recording name", Toast.LENGTH_LONG).show();
@@ -180,11 +189,18 @@ public class EditRecording extends AppCompatActivity implements OnItemClickListe
                 break;
             case 4:
                 //Add to a category
-                Intent intent2 = new Intent(this, AddRecToCat.class);
+                Intent intent2 = new Intent(this, Categories.class);
+                intent2.putExtra("addToCat", rec.getId());
                 startActivity(intent2);
                 break;
             case 5:
-                db.createRecord(rec);
+
+                if (recID==-1) {
+                    db.createRecord(rec);
+                }else{
+                    db.updateRecord(rec);
+                }
+                Log.d("Rec ID", rec.getId()+"");
                 //Save the recording and go back to home screen.
                 Toast.makeText(this, "Recording Saved", Toast.LENGTH_LONG).show();
                 Intent intent = new Intent(this, Homepage.class);

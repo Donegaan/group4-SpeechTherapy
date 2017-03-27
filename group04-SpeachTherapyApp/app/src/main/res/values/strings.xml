@@ -101,4 +101,5 @@
     <string name="category">Category</string>
     <string name="enter_category_name">Enter Category Name</string>
     <string name="name_category">Name Category</string>
+    <string name="no_rec_saved">No recordings have been saved to this Category</string>
 </resources>

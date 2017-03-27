@@ -17,10 +17,11 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.AdapterView.OnItemClickListener;
 
 import java.io.File;
 
-public class EditCategory extends AppCompatActivity implements AdapterView.OnItemClickListener {
+public class EditCategory extends AppCompatActivity implements OnItemClickListener {
     final DatabaseOperations db = new DatabaseOperations(EditCategory.this);
     String[] catSettings = {"Rename Category", "Delete Category", "Save Category"};
     int[] icons = {R.drawable.name_rec, R.drawable.delete_button,R.drawable.save_rec};
@@ -88,6 +89,7 @@ public class EditCategory extends AppCompatActivity implements AdapterView.OnIte
             case 2: // Save Category
                 db.updateCategory(cat);
                 Toast.makeText(this, "Category Saved", Toast.LENGTH_LONG).show();
+                startActivity(new Intent(EditCategory.this,Edit.class));
                 break;
         }
 

@@ -7,23 +7,25 @@ import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
+import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.AdapterView.OnItemClickListener;
 
 import java.util.ArrayList;
 
 import static android.R.id.message;
 
-public class Categories extends AppCompatActivity {
+public class Categories extends AppCompatActivity implements OnItemClickListener {
     ArrayList <DatabaseOperations.Category> categories = new ArrayList<DatabaseOperations.Category>();
     private LinearLayout mLayout;
     private EditText mEditText;
     final DatabaseOperations db = new DatabaseOperations(Categories.this);
-
+    int recID;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -31,12 +33,14 @@ public class Categories extends AppCompatActivity {
         mLayout = (LinearLayout) findViewById(R.id.linearLayout);
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
         mEditText = (EditText) findViewById(R.id.editText);
+        recID=getIntent().getIntExtra("addToCat",-1); // If a recording ID is passed it means it should be added to the category.
         categories = db.getAllCategories();
         ListView list = (ListView) findViewById(R.id.rec_list);
 
 
         MyAdapter adapter = new MyAdapter();
         list.setAdapter(adapter);
+        list.setOnItemClickListener(this);
     }
 
     class MyAdapter extends BaseAdapter {
@@ -94,8 +98,17 @@ public class Categories extends AppCompatActivity {
         favourites.setCatName(favName);
         db.createCategory(favourites);
     }
-    public void catClicked(View View){
-//        Intent intent = new Intent(this, Recordings.class);
-//        intent.putExtra("Category", )
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        if (recID==-1){
+            //Show recordings
+            Intent intent = new Intent(Categories.this, Recordings.class);
+            intent.putExtra("catID", categories.get(position).getId());
+            intent.putExtra("key", "Categories"); // Passing previous activity
+            startActivity(intent);
+        }else{ //Add recording to this category.
+            db.createCatRec(categories.get(position).getId(),recID);
+            Toast.makeText(Categories.this,"Recording added to " + categories.get(position).getCatName() + " category.",Toast.LENGTH_LONG).show();
+
+        }
     }
 }

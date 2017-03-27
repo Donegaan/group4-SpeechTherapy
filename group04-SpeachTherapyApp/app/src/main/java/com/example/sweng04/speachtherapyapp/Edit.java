@@ -13,11 +13,12 @@ import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.AdapterView.OnItemClickListener;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class Edit extends AppCompatActivity implements AdapterView.OnItemClickListener {
+public class Edit extends AppCompatActivity implements OnItemClickListener {
     ArrayList <DatabaseOperations.Category> categories = new ArrayList<DatabaseOperations.Category>();
     boolean editCats = false;
     final DatabaseOperations db = new DatabaseOperations(Edit.this);
@@ -72,6 +73,8 @@ public class Edit extends AppCompatActivity implements AdapterView.OnItemClickLi
             btn.setText("Tap a category to edit");
         }else{
             editCats=false;
+            Button btn = (Button) findViewById(R.id.edit_categories_button);
+            btn.setText("Tap to edit Categories");
         }
     }
 
@@ -92,8 +95,9 @@ public class Edit extends AppCompatActivity implements AdapterView.OnItemClickLi
             intent = new Intent(this,EditCategory.class);
         }else{
             intent = new Intent(this, Recordings.class);
+            intent.putExtra("key", "Edit");
         }
-        Log.d("Cat ID", categories.get(position).getId()+"");
+        //Log.d("Cat ID", categories.get(position).getId()+"");
         intent.putExtra("catID", categories.get(position).getId());
         startActivity(intent);
     }

@@ -47,13 +47,6 @@
                 android:value="com.example.sweng04.speachtherapyapp.RecordPage" />
         </activity>
         <activity
-            android:name=".AddRecToCat"
-            android:label="Add to a Category">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.example.sweng04.speachtherapyapp.EditRecording" />
-        </activity>
-        <activity
             android:name=".Edit"
             android:label="Edit">
             <meta-data

@@ -39,9 +39,9 @@ public class RecordPage extends AppCompatActivity {
         String filefullpath = getExternalFilesDir(null).getAbsolutePath() +"/" + filename + ".wav";
         //Log.e(ExtAudioRecorder.class.getName(),filefullpath);
         //TODO Uncomment this
-        recorder = OmRecorder.wav(
-                new PullTransport.Default(mic(), new PullTransport.OnAudioChunkPulledListener() {
-                    @Override public void onAudioChunkPulled(AudioChunk audioChunk) {}}), new File(filefullpath));
+//        recorder = OmRecorder.wav(
+//                new PullTransport.Default(mic(), new PullTransport.OnAudioChunkPulledListener() {
+//                    @Override public void onAudioChunkPulled(AudioChunk audioChunk) {}}), new File(filefullpath));
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 
@@ -56,19 +56,19 @@ public class RecordPage extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    public void backToHome(View view){ // Back button
-        if (!firstPress){
-            try {
-                recorder.stopRecording();
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-            //TODO: Delete
-            //end recording and delete it.
-        }
-        Intent intent = new Intent(this,Homepage.class);
-        startActivity(intent);
-    }
+//    public void backToHome(View view){ // Back button
+//        if (!firstPress){
+//            try {
+//                recorder.stopRecording();
+//            } catch (Exception e) {
+//                e.printStackTrace();
+//            }
+//            //TODO: Delete
+//            //end recording and delete it.
+//        }
+//        Intent intent = new Intent(this,Homepage.class);
+//        startActivity(intent);
+//    }
 
     boolean firstPress=true;
     public void recording(View view){
@@ -81,14 +81,14 @@ public class RecordPage extends AppCompatActivity {
             btn.setBackgroundColor(Color.RED);
             btn.setText("Tap to Stop Recording");
             //TODO Uncomment this
-            recorder.startRecording();
+            //recorder.startRecording();
         }else{ // This is where the code to end the recording will be.
             //TODO Uncomment this
-            try {
-                recorder.stopRecording();
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
+//            try {
+//                recorder.stopRecording();
+//            } catch (Exception e) {
+//                e.printStackTrace();
+//            }
 
             Intent intent = new Intent(this, EditRecording.class);
             intent.putExtra("FILENAME", filename); // passes the filename to the next page

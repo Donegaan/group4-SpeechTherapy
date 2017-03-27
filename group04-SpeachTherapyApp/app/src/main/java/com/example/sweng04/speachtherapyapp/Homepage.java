@@ -25,6 +25,7 @@ public class Homepage extends AppCompatActivity {
 
     public void viewFavourite(View view){
         // Show list of favourite recordings.
+        // Will need to figure out how to get favourites ID.
         startActivity(new Intent(this, Recordings.class));
 
     }

@@ -1,33 +1,41 @@
 package com.example.sweng04.speachtherapyapp;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
-
+import android.widget.AdapterView.OnItemClickListener;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Recordings extends AppCompatActivity {
+public class Recordings extends AppCompatActivity implements OnItemClickListener {
     ArrayList<DatabaseOperations.Record>recordings = new ArrayList<DatabaseOperations.Record>();
     final DatabaseOperations db = new DatabaseOperations(this);
-    //String[] test = {"Name Recording", "Preview Recording", "Delete Recording", "Record Again","Add to a Category", "Save Recording"};
+    String prevActivity="";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_recordings);
         db.getWritableDatabase();
-        long key = getIntent().getLongExtra("catID",0);
-        recordings=db.getRecCat(key);
+        int catID = getIntent().getIntExtra("catID",0);
+        recordings=db.getRecCat(catID); // This gets the recordings from a specific category.
+        //recordings=db.getAllRecords(); // This gets all recordings
+        Log.d("rec array size", recordings.size()+"");
+        prevActivity = getIntent().getStringExtra("key");
+        //TODO Get Recordings saving and displaying properly
         ListView list = (ListView) findViewById(R.id.rec_list);
         recAdapter adapter = new recAdapter();
         list.setAdapter(adapter);
+        list.setOnItemClickListener(this);
 
     }
 
@@ -55,9 +63,20 @@ public class Recordings extends AppCompatActivity {
             }
             TextView recording = (TextView) convertView.findViewById(R.id.rec_text);
             String recordingName = recordings.get(position).getRecName();
-            //Log.d("Recording ID", recordings.get(position).getId()+"");
+            Log.d("Recording name", recordings.get(position).getRecName() + "  end of name");
             recording.setText(recordingName);
             return convertView;
+        }
+    }
+
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) { // Either play or edit the recordings
+        if (prevActivity.equals("Edit")){
+            Intent intent = new Intent(Recordings.this, EditRecording.class);
+            intent.putExtra("recID", recordings.get(position).getId()); // Passes the recording ID that needs to be edited.
+            startActivity(intent);
+        }else if (prevActivity.equals("Categories")){
+            //Play the recording
+            Log.d("rec array size", recordings.size()+"");
         }
     }
 }
