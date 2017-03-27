@@ -12,8 +12,11 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
+
+import static android.R.id.message;
 
 public class Categories extends AppCompatActivity {
     ArrayList <DatabaseOperations.Category> categories = new ArrayList<DatabaseOperations.Category>();
@@ -76,13 +79,13 @@ public class Categories extends AppCompatActivity {
         categories = db.getAllCategories();
     }
     //Default Category for unassigned recordings
-    public void addUnassignedCat(){
+    /*public void addUnassignedCat(){
         db.getWritableDatabase();
         DatabaseOperations.Category defaultCat = new DatabaseOperations.Category();
         String defaultName = (String)getText(R.string.Unassigned);
         defaultCat.setCatName(defaultName);
         db.createCategory(defaultCat);
-    }
+    }*/
     //Favourites Category
     public void addFavouritesCat(){
         db.getWritableDatabase();
