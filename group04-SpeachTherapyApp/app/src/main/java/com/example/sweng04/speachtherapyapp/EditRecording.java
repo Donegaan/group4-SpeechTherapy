@@ -33,6 +33,9 @@ public class EditRecording extends AppCompatActivity implements OnItemClickListe
     String filename = "";
     String key=""; // For back button
     int recID;
+    String recCorrectName;
+    DatabaseOperations.Record rec;
+    boolean init = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -93,11 +96,13 @@ public class EditRecording extends AppCompatActivity implements OnItemClickListe
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
         db.getWritableDatabase();
-        final DatabaseOperations.Record rec;
         if (recID==-1) {
-             rec = new DatabaseOperations.Record();
+            if(init == true) {
+                rec = new DatabaseOperations.Record();
+                init = false;
+            }
         }else{
-            rec = db.getRec(recID);
+            rec.setId(recID);
         }
 
         switch (position) { // Does something according to what setting is selected.
@@ -115,8 +120,10 @@ public class EditRecording extends AppCompatActivity implements OnItemClickListe
                         if (!nameRec.getText().toString().isEmpty()) {
                             Toast.makeText(EditRecording.this, "Recording name saved", Toast.LENGTH_LONG).show();
                             //Log.d("New Rec name", nameRec.getText().toString());
+                            Log.d("??????????",nameRec.getText().toString() +"----------------------------------");
                             rec.setRecName(nameRec.getText().toString()); // Save recording name
-                            Log.d("Rec name",rec.getRecName());
+                            Log.d("Rec name",rec.getRecName() +"----------------------------------");
+                            recCorrectName = rec.getRecName();
 
                             dialog.dismiss();
                         } else {
@@ -195,7 +202,11 @@ public class EditRecording extends AppCompatActivity implements OnItemClickListe
                 break;
             case 5:
                 if (recID==-1) { // If its a new recording.
+                    Log.d("Rec name",rec.getRecName() +"?????????????????????????");
+                    //rec.setRecName(recCorrectName);
                     db.createRecord(rec);
+
+
                 }else{
                     db.updateRecord(rec);
                 }

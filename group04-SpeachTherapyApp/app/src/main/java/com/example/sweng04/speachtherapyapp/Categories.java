@@ -109,6 +109,7 @@ public class Categories extends AppCompatActivity implements OnItemClickListener
             intent.putExtra("key", "Categories"); // Passing previous activity
             startActivity(intent);
         }else{ //Add recording to this category.
+
             db.createCatRec(categories.get(position).getId(),recID);
             Toast.makeText(Categories.this,"Recording added to " + categories.get(position).getCatName() + " category.",Toast.LENGTH_LONG).show();
 

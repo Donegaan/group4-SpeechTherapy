@@ -24,8 +24,10 @@ public class Recordings extends AppCompatActivity implements OnItemClickListener
         setContentView(R.layout.activity_recordings);
         db.getWritableDatabase();
         int catID = getIntent().getIntExtra("catID",0);
+
         recordings=db.getRecCat(catID); // This gets the recordings from a specific category.
         //recordings=db.getAllRecords(); // This gets all recordings
+
         Log.d("rec array size", recordings.size()+"");
         prevActivity = getIntent().getStringExtra("key");
         //TODO Get Recordings saving and displaying properly
@@ -62,7 +64,7 @@ public class Recordings extends AppCompatActivity implements OnItemClickListener
             }
             TextView recording = (TextView) convertView.findViewById(R.id.rec_text);
             String recordingName = recordings.get(position).getRecName();
-            //Log.d("Recording name", recordings.get(position).getRecName() + "  end of name");
+            Log.d("Recording name", recordings.get(position).getRecName() + "  end of name and it's ID = " + recordings.get(position).getId());
             recording.setText(recordingName);
             return convertView;
         }

@@ -79,8 +79,6 @@ public class DatabaseOperations extends SQLiteOpenHelper {
 
     //--------------------REC--------------------REC--------------------REC--------------------
 
-    public Record newRec(){
-        return new Record();}
 
     public static class Record {
 
@@ -137,7 +135,7 @@ public class DatabaseOperations extends SQLiteOpenHelper {
     // fetches list of all recordings in Record Table
     public ArrayList<Record> getAllRecords(){
         ArrayList<Record> recordings = new ArrayList<Record>();
-        String selectQuery = "SELECT * FROM " + TABLE_RECORDING;
+        String selectQuery = "SELECT " +  REC_ID + " , " + REC_NAME+ " FROM " + TABLE_RECORDING;
 
         Log.e(LOG, selectQuery);
 
@@ -161,7 +159,8 @@ public class DatabaseOperations extends SQLiteOpenHelper {
 
     // fetch single project from project table
     public Record getRec(long rec_id){
-        String selectQuery = "SELECT * FROM " + TABLE_RECORDING
+        String selectQuery = "SELECT " + REC_ID + " , " + REC_NAME
+                +" FROM " + TABLE_RECORDING
                 + " WHERE " + REC_ID + " = " + rec_id;
         Log.e(LOG, selectQuery);
 
