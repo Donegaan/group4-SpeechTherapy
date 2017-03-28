@@ -33,13 +33,6 @@
                 android:value="com.example.sweng04.speachtherapyapp.RecordPage" />
         </activity>
         <activity
-            android:name=".AddCategory"
-            android:label="Add a Category">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.example.sweng04.speachtherapyapp.RecordPage" />
-        </activity>
-        <activity
             android:name=".EditRecording"
             android:label="@string/title_activity_edit_new_recording">
             <meta-data

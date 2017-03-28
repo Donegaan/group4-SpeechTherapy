@@ -26,6 +26,7 @@ public class Categories extends AppCompatActivity implements OnItemClickListener
     private EditText mEditText;
     final DatabaseOperations db = new DatabaseOperations(Categories.this);
     int recID;
+    MyAdapter adapter = new MyAdapter();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,7 +39,7 @@ public class Categories extends AppCompatActivity implements OnItemClickListener
         ListView list = (ListView) findViewById(R.id.rec_list);
 
 
-        MyAdapter adapter = new MyAdapter();
+
         list.setAdapter(adapter);
         list.setOnItemClickListener(this);
     }
@@ -81,6 +82,8 @@ public class Categories extends AppCompatActivity implements OnItemClickListener
         newCat.setCatName(catName);
         db.createCategory(newCat);
         categories = db.getAllCategories();
+        Toast.makeText(this, catName+" has been added to Categories", Toast.LENGTH_SHORT).show();
+        adapter.notifyDataSetChanged();
     }
     //Default Category for unassigned recordings
     /*public void addUnassignedCat(){
