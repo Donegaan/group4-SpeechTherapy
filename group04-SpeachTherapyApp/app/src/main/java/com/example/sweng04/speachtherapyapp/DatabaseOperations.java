@@ -373,6 +373,34 @@ public class DatabaseOperations extends SQLiteOpenHelper {
         return recordings;
     }
 
+    // fetches all recording connected to a certain categories
+    public ArrayList<Record> getAssignedRec(){
+        ArrayList<Record> recordings = new ArrayList<Record>();
+        //String selectQuery = "SELECT " + REC_ID + " FROM " + TABLE_CAT_REC;
+
+        String selectQuery = "SELECT " + TABLE_RECORDING + "." + REC_ID + ", "+ TABLE_RECORDING + "." + REC_NAME
+                + " FROM " + TABLE_CAT_REC + ", "+ TABLE_RECORDING
+                + " WHERE " + TABLE_CAT_REC + "." + REC_ID + " = " + TABLE_RECORDING + " . " + REC_ID;
+
+        Log.e(LOG, selectQuery);
+
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor c = db.rawQuery(selectQuery, null);
+
+        // looping through all rows and adding to list
+        if (c.moveToFirst()) {
+            do {
+                Record rec = new Record();
+                rec.setId(c.getInt((c.getColumnIndex(REC_ID))));
+                rec.setRecName((c.getString(c.getColumnIndex(REC_NAME))));
+                //obj.setReturn_date((c.getString(c.getColumnIndex(OBJ_RETURN_DATE))));
+                // adding to todo list
+                recordings.add(rec);
+            } while (c.moveToNext());
+        }
+        return recordings;
+    }
+
     // delete category from Category-Recording table
     public void deleteCatRec(long cat) {
         SQLiteDatabase db = this.getWritableDatabase();
