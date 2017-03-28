@@ -194,8 +194,7 @@ public class EditRecording extends AppCompatActivity implements OnItemClickListe
                 startActivity(intent2);
                 break;
             case 5:
-
-                if (recID==-1) {
+                if (recID==-1) { // If its a new recording.
                     db.createRecord(rec);
                 }else{
                     db.updateRecord(rec);

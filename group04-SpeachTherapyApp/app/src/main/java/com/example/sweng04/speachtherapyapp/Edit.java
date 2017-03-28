@@ -27,8 +27,6 @@ public class Edit extends AppCompatActivity implements OnItemClickListener {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit);
         ListView list = (ListView) findViewById(R.id.edit_list);
-
-
         MyAdapter adapter = new MyAdapter();
         list.setAdapter(adapter);
         list.setOnItemClickListener(this);

@@ -7,14 +7,11 @@ import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
-import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.AdapterView.OnItemClickListener;
 import java.util.ArrayList;
-import java.util.List;
 
 public class Recordings extends AppCompatActivity implements OnItemClickListener {
     ArrayList<DatabaseOperations.Record>recordings = new ArrayList<DatabaseOperations.Record>();
@@ -35,6 +32,8 @@ public class Recordings extends AppCompatActivity implements OnItemClickListener
         ListView list = (ListView) findViewById(R.id.rec_list);
         recAdapter adapter = new recAdapter();
         list.setAdapter(adapter);
+        TextView emptyText = (TextView)findViewById(android.R.id.empty);
+        list.setEmptyView(emptyText);
         list.setOnItemClickListener(this);
 
     }
@@ -63,7 +62,7 @@ public class Recordings extends AppCompatActivity implements OnItemClickListener
             }
             TextView recording = (TextView) convertView.findViewById(R.id.rec_text);
             String recordingName = recordings.get(position).getRecName();
-            Log.d("Recording name", recordings.get(position).getRecName() + "  end of name");
+            //Log.d("Recording name", recordings.get(position).getRecName() + "  end of name");
             recording.setText(recordingName);
             return convertView;
         }
