@@ -1,9 +1,11 @@
 package com.example.sweng04.speachtherapyapp;
 
 import android.content.Intent;
+import android.support.v4.app.NavUtils;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
@@ -31,7 +33,6 @@ public class Categories extends AppCompatActivity implements OnItemClickListener
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_categories);
-        mLayout = (LinearLayout) findViewById(R.id.linearLayout);
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
         mEditText = (EditText) findViewById(R.id.editText);
         recID=getIntent().getIntExtra("addToCat",-1); // If a recording ID is passed it means it should be added to the category.
@@ -42,6 +43,17 @@ public class Categories extends AppCompatActivity implements OnItemClickListener
 
         list.setAdapter(adapter);
         list.setOnItemClickListener(this);
+    }
+
+    @Override // Goes to parent activity - Back button
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            // Respond to the action bar's Up/Home button
+            case android.R.id.home:
+                NavUtils.navigateUpFromSameTask(this);
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     class MyAdapter extends BaseAdapter {
@@ -114,5 +126,11 @@ public class Categories extends AppCompatActivity implements OnItemClickListener
             Toast.makeText(Categories.this,"Recording added to " + categories.get(position).getCatName() + " category.",Toast.LENGTH_LONG).show();
 
         }
+    }
+
+    public void unassignedClicked(View view){
+        Intent intent = new Intent(Categories.this,Recordings.class);
+        intent.putExtra("unassignedRecs",true);
+        startActivity(intent);
     }
 }

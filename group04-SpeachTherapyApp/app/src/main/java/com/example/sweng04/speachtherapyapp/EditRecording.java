@@ -102,7 +102,11 @@ public class EditRecording extends AppCompatActivity implements OnItemClickListe
                 init = false;
             }
         }else{
-            rec.setId(recID);
+            if (key.equals("Edit")){
+                rec=db.getRec(recID);
+            }else {
+                rec.setId(recID);
+            }
         }
 
         switch (position) { // Does something according to what setting is selected.
@@ -154,14 +158,18 @@ public class EditRecording extends AppCompatActivity implements OnItemClickListe
                         file.delete();
                         if(file.exists()){
                             getApplicationContext().deleteFile(file.getName());
-                            db.deleteRec(rec.id);
+
                         }
-                        //TODO: Delete from DB
+
                         // continue with delete
+                        db.deleteRec(rec.id);
                         if (key.equals("RecordPage")) {
                             startActivity(new Intent(EditRecording.this, RecordPage.class));
                         }else if (key.equals("Edit")){
                             //Will go back to previous page to display the list of recordings.
+                            Intent intent = new Intent(EditRecording.this, Recordings.class);
+                            intent.putExtra("key", "Edit");
+                            startActivity(intent);
                         }
                     }
                 });
