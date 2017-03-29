@@ -26,13 +26,17 @@ public class Recordings extends AppCompatActivity implements OnItemClickListener
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_recordings);
         db.getWritableDatabase();
-        int catID = getIntent().getIntExtra("catID",0);
-        unassignedRecs=getIntent().getBooleanExtra("unassignedRecs",false);
+        int catID = getIntent().getIntExtra("catID", 0);
+        unassignedRecs = getIntent().getBooleanExtra("unassignedRecs", false);
+        Log.d("Unassigned boolean", unassignedRecs + "");
+        if (unassignedRecs) {
+            recordings = unassignedRecordings();
+        } else {
+            recordings = db.getRecCat(catID); // This gets the recordings from a specific category.
+            //recordings=db.getAllRecords(); // This gets all recordings
+        }
 
-        //recordings=db.getRecCat(catID); // This gets the recordings from a specific category.
-        recordings=db.getAllRecords(); // This gets all recordings
-
-        Log.d("rec array size", recordings.size()+"");
+        //Log.d("rec array size", recordings.size()+"");
         prevActivity = getIntent().getStringExtra("key");
         //TODO Get Recordings saving and displaying properly
         ListView list = (ListView) findViewById(R.id.rec_list);
@@ -78,32 +82,31 @@ public class Recordings extends AppCompatActivity implements OnItemClickListener
                 convertView = getLayoutInflater().inflate(R.layout.recordings_row, parent, false);
             }
             TextView recording = (TextView) convertView.findViewById(R.id.rec_text);
-            if (!unassignedRecs) {
-                String recordingName = recordings.get(position).getRecName();
-                Log.d("Recording name", recordings.get(position).getRecName() + "  end of name and it's ID = " + recordings.get(position).getId());
-                recording.setText(recordingName);
-            }else{
-                ArrayList<DatabaseOperations.Record> allRecs =db.getAllRecords();
-                ArrayList<DatabaseOperations.Record> allAssignedRecs =db.getAssignedRec();
-                ArrayList<DatabaseOperations.Record> allUnassignedRecs = new ArrayList<>();
-                for (int i=0; i<allRecs.size();i++){
-                    boolean assigned=false;
-                    for (int j=0;j<allAssignedRecs.size();j++){
-                        if (allAssignedRecs.get(j)==allRecs.get(i)){
-                            assigned=true;
-                            break;
-                        }
-                    }
-                    if (assigned==false){
-                        allUnassignedRecs.add(allRecs.get(i)); // The recording is unassigned
-                    }
-                }
-                String recordingName = allUnassignedRecs.get(position).getRecName();
-                Log.d("Recording name", allUnassignedRecs.get(position).getRecName() + "  end of name and it's ID = " + recordings.get(position).getId());
-                recording.setText(recordingName);
-            }
+            String recordingName = recordings.get(position).getRecName();
+            Log.d("Recording name", recordings.get(position).getRecName() + "  end of name and it's ID = " + recordings.get(position).getId());
+            recording.setText(recordingName);
             return convertView;
         }
+    }
+
+    public ArrayList<DatabaseOperations.Record> unassignedRecordings(){
+        ArrayList<DatabaseOperations.Record> allRecs =db.getAllRecords();
+        ArrayList<DatabaseOperations.Record> allAssignedRecs =db.getAssignedRec();
+        ArrayList<DatabaseOperations.Record> allUnassignedRecs = new ArrayList<>();
+        for (int i=0; i<allRecs.size();i++){
+            boolean assigned=false;
+            for (int j=0;j<allAssignedRecs.size();j++){
+                if (allAssignedRecs.get(j)==allRecs.get(i)){
+                    assigned=true;
+                    break;
+                }
+            }
+            if (assigned==false){
+                allUnassignedRecs.add(allRecs.get(i)); // The recording is unassigned
+            }
+        }
+        Log.d("unassigned size", allUnassignedRecs.size()+"");
+        return allUnassignedRecs;
     }
 
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) { // Either play or edit the recordings

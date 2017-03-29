@@ -36,6 +36,7 @@ public class EditRecording extends AppCompatActivity implements OnItemClickListe
     String recCorrectName;
     DatabaseOperations.Record rec;
     boolean init = true;
+    boolean newRec=false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -99,6 +100,7 @@ public class EditRecording extends AppCompatActivity implements OnItemClickListe
         if (recID==-1) {
             if(init == true) {
                 rec = new DatabaseOperations.Record();
+                db.createRecord(rec);
                 init = false;
             }
         }else{
@@ -111,6 +113,7 @@ public class EditRecording extends AppCompatActivity implements OnItemClickListe
 
         switch (position) { // Does something according to what setting is selected.
             case 0: // Name the new recording the user made
+
                 final AlertDialog.Builder nameBuilder = new AlertDialog.Builder(EditRecording.this); // Dialog box to enter new name.
                 View nameView = getLayoutInflater().inflate(R.layout.name_recording, null);
                 final EditText nameRec = (EditText) nameView.findViewById(R.id.name_rec_box);
@@ -128,7 +131,6 @@ public class EditRecording extends AppCompatActivity implements OnItemClickListe
                             rec.setRecName(nameRec.getText().toString()); // Save recording name
                             Log.d("Rec name",rec.getRecName() +"----------------------------------");
                             recCorrectName = rec.getRecName();
-
                             dialog.dismiss();
                         } else {
                             Toast.makeText(EditRecording.this, "Enter a recording name", Toast.LENGTH_LONG).show();
@@ -206,15 +208,14 @@ public class EditRecording extends AppCompatActivity implements OnItemClickListe
                 //Add to a category
                 Intent intent2 = new Intent(this, Categories.class);
                 intent2.putExtra("addToCat", rec.getId());
+                Log.d("Rec ID when add to cat",rec.getId()+"");
                 startActivity(intent2);
                 break;
             case 5:
-                if (recID==-1) { // If its a new recording.
+                if (recID==-1 && newRec==false) { // If its a new recording.
                     Log.d("Rec name",rec.getRecName() +"?????????????????????????");
                     //rec.setRecName(recCorrectName);
-                    db.createRecord(rec);
-
-
+                    //db.createRecord(rec);
                 }else{
                     db.updateRecord(rec);
                 }
