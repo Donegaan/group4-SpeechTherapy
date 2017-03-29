@@ -28,6 +28,9 @@ public class EditCategory extends AppCompatActivity implements OnItemClickListen
     String[] catSettings = {"Rename Category", "Delete Category", "Save Category"};
     int[] icons = {R.drawable.name_rec, R.drawable.delete_button,R.drawable.save_rec};
     int catID;
+    String newName;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -72,7 +75,9 @@ public class EditCategory extends AppCompatActivity implements OnItemClickListen
                         if (!nameCat.getText().toString().isEmpty()) {
                             Toast.makeText(EditCategory.this, "Category name saved", Toast.LENGTH_LONG).show();
                             Log.d("New cat name", nameCat.getText().toString());
-                            cat.setCatName(nameCat.getText().toString()); // Save recording name
+                            //Saves the updated name for later;
+                            newName = nameCat.getText().toString();
+                            //cat.setCatName(nameCat.getText().toString()); // Save recording name
                             dialog.dismiss();
                         } else {
                             Toast.makeText(EditCategory.this, "Enter a category name", Toast.LENGTH_LONG).show();
@@ -99,6 +104,8 @@ public class EditCategory extends AppCompatActivity implements OnItemClickListen
                 alert.show();
                 break;
             case 2: // Save Category
+                //We're changing the name here
+                cat.setCatName(newName);
                 db.updateCategory(cat);
                 Toast.makeText(this, "Category Saved", Toast.LENGTH_LONG).show();
                 startActivity(new Intent(EditCategory.this,Edit.class));
