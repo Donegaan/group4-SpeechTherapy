@@ -36,7 +36,6 @@ public class EditRecording extends AppCompatActivity implements OnItemClickListe
     String recCorrectName;
     DatabaseOperations.Record rec;
     boolean init = true;
-    boolean newRec=false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -100,7 +99,7 @@ public class EditRecording extends AppCompatActivity implements OnItemClickListe
         if (recID==-1) {
             if(init == true) {
                 rec = new DatabaseOperations.Record();
-                db.createRecord(rec);
+
                 init = false;
             }
         }else{
@@ -212,10 +211,10 @@ public class EditRecording extends AppCompatActivity implements OnItemClickListe
                 startActivity(intent2);
                 break;
             case 5:
-                if (recID==-1 && newRec==false) { // If its a new recording.
+                if (recID==-1 ) { // If its a new recording.
                     Log.d("Rec name",rec.getRecName() +"?????????????????????????");
                     //rec.setRecName(recCorrectName);
-                    //db.createRecord(rec);
+                    db.createRecord(rec);
                 }else{
                     db.updateRecord(rec);
                 }
