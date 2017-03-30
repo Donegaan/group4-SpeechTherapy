@@ -38,8 +38,12 @@ public class Categories extends AppCompatActivity implements OnItemClickListener
         recID=getIntent().getIntExtra("addToCat",-1); // If a recording ID is passed it means it should be added to the category.
         categories = db.getAllCategories();
         ListView list = (ListView) findViewById(R.id.rec_list);
-
-
+        if (categories.size()==0){ // Create a favourites category is there isn't one.
+            DatabaseOperations.Category newFavCat = new DatabaseOperations.Category();
+            newFavCat.setCatName("Favourites");
+            db.createCategory(newFavCat);
+            categories = db.getAllCategories();
+        }
 
         list.setAdapter(adapter);
         list.setOnItemClickListener(this);
@@ -97,22 +101,6 @@ public class Categories extends AppCompatActivity implements OnItemClickListener
         categories = db.getAllCategories();
         Toast.makeText(this, catName+" has been added to Categories", Toast.LENGTH_SHORT).show();
         adapter.notifyDataSetChanged();
-    }
-    //Default Category for unassigned recordings
-    /*public void addUnassignedCat(){
-        db.getWritableDatabase();
-        DatabaseOperations.Category defaultCat = new DatabaseOperations.Category();
-        String defaultName = (String)getText(R.string.Unassigned);
-        defaultCat.setCatName(defaultName);
-        db.createCategory(defaultCat);
-    }*/
-    //Favourites Category
-    public void addFavouritesCat(){
-        db.getWritableDatabase();
-        DatabaseOperations.Category favourites = new DatabaseOperations.Category();
-        String favName = (String)getText(R.string.Favourites);
-        favourites.setCatName(favName);
-        db.createCategory(favourites);
     }
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         if (recID==-1){

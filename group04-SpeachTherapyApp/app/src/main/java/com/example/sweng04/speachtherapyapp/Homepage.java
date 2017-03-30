@@ -24,10 +24,14 @@ public class Homepage extends AppCompatActivity {
     }
 
     public void viewFavourite(View view){
+        final DatabaseOperations db = new DatabaseOperations(this);
+        int favCatID = db.getAllCategories().get(0).getId();
         // Show list of favourite recordings.
         // Will need to figure out how to get favourites ID.
-        startActivity(new Intent(this, Recordings.class));
-
+        Intent intent = new Intent(this, Recordings.class);
+        intent.putExtra("key","Categories");
+        intent.putExtra("catID",favCatID);
+        startActivity(intent);
     }
 
     public void edit (View view){

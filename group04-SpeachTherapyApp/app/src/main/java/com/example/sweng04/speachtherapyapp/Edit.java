@@ -14,6 +14,7 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.AdapterView.OnItemClickListener;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -88,16 +89,20 @@ public class Edit extends AppCompatActivity implements OnItemClickListener {
     }
 
     public void onItemClick(AdapterView<?> parent, View view, int position, long id){
-        Intent intent;
-        if (editCats){ // If the edit category button has been pressed then go to the edit category page for this specific category.
-            intent = new Intent(this,EditCategory.class);
-        }else{
-            intent = new Intent(this, Recordings.class);
-            intent.putExtra("key", "Edit");
+        if (categories.get(position).getCatName().equals("Favourites")){
+            Toast.makeText(Edit.this,"Cannot edit Favourites category",Toast.LENGTH_LONG).show();
+        }else {
+            Intent intent;
+            if (editCats) { // If the edit category button has been pressed then go to the edit category page for this specific category.
+                intent = new Intent(this, EditCategory.class);
+            } else {
+                intent = new Intent(this, Recordings.class);
+                intent.putExtra("key", "Edit");
+            }
+            //Log.d("Cat ID", categories.get(position).getId()+"");
+            intent.putExtra("catID", categories.get(position).getId());
+            startActivity(intent);
         }
-        //Log.d("Cat ID", categories.get(position).getId()+"");
-        intent.putExtra("catID", categories.get(position).getId());
-        startActivity(intent);
     }
 
     public void unassignedClicked(View view){

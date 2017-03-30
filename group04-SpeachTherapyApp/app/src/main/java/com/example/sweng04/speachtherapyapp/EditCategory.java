@@ -98,11 +98,12 @@ public class EditCategory extends AppCompatActivity implements OnItemClickListen
                 });
                 alert.setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
-                        // close dialog
+                            // close dialog
                         dialog.cancel();
                     }
                 });
                 alert.show();
+
                 break;
             case 2: // Save Category
                 //We're changing the name here

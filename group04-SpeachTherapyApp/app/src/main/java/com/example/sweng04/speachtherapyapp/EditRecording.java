@@ -38,6 +38,7 @@ public class EditRecording extends AppCompatActivity implements OnItemClickListe
     DatabaseOperations.Record rec;
     boolean init = true;
     boolean unassigned = false;
+    boolean recHasName=false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -134,6 +135,7 @@ public class EditRecording extends AppCompatActivity implements OnItemClickListe
                             Log.d("Rec name",rec.getRecName() +"----------------------------------");
                             recCorrectName = rec.getRecName();
                             dialog.dismiss();
+                            recHasName=true;
                         } else {
                             Toast.makeText(EditRecording.this, "Enter a recording name", Toast.LENGTH_LONG).show();
                         }
@@ -219,30 +221,35 @@ public class EditRecording extends AppCompatActivity implements OnItemClickListe
                 startActivity(intent2);
                 break;
             case 5:
-                if (recID==-1 ) { // If its a new recording.
-                    Log.d("Rec name",rec.getRecName() +"?????????????????????????");
-                    //rec.setRecName(recCorrectName);
-                    db.createRecord(rec);
-                }else{
-                    db.updateRecord(rec);
-                }
-                Log.d("Rec ID", rec.getId()+"");
-                //Save the recording and go back to home screen.
-                if (key.equals("Edit")){
-                    Intent intent = new Intent(EditRecording.this,Recordings.class);
-                    if (unassigned){
-                        intent.putExtra("unassigned",true);
-                    }else if (catID>-1) {
-                        intent.putExtra("catID",catID);
+                if (recHasName) {
+                    if (recID == -1) { // If its a new recording.
+                        Log.d("Rec name", rec.getRecName() + "?????????????????????????");
+                        //rec.setRecName(recCorrectName);
+                        db.createRecord(rec);
+                    } else {
+                        db.updateRecord(rec);
                     }
-                    intent.putExtra("key", "Edit");
-                    startActivity(intent);
-                }else {
+                    Toast.makeText(this, "Recording Saved", Toast.LENGTH_LONG).show();
 
-                    Intent intent = new Intent(this, Homepage.class);
-                    startActivity(intent);
+                    Log.d("Rec ID", rec.getId() + "");
+                    //Save the recording and go back to home screen.
+                    if (key.equals("Edit")) {
+                        Intent intent = new Intent(EditRecording.this, Recordings.class);
+                        if (unassigned) {
+                            intent.putExtra("unassigned", true);
+                        } else if (catID > -1) {
+                            intent.putExtra("catID", catID);
+                        }
+                        intent.putExtra("key", "Edit");
+                        startActivity(intent);
+                    } else {
+                        Intent intent = new Intent(this, Homepage.class);
+                        startActivity(intent);
+                    }
+                }else{
+                    Toast.makeText(EditRecording.this,"Recording name is blank, cannot save.",Toast.LENGTH_LONG).show();
                 }
-                Toast.makeText(this, "Recording Saved", Toast.LENGTH_LONG).show();
+
                 break;
         }
     }
