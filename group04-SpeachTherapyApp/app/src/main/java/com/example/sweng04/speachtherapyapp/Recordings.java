@@ -46,6 +46,7 @@ public class Recordings extends AppCompatActivity implements OnItemClickListener
         TextView emptyText = (TextView)findViewById(android.R.id.empty);
         list.setEmptyView(emptyText);
         list.setOnItemClickListener(this);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
     }
 

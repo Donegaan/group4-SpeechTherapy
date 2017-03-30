@@ -175,6 +175,8 @@ public class EditRecording extends AppCompatActivity implements OnItemClickListe
                             intent.putExtra("key", "Edit");
                             if (unassigned){
                                 intent.putExtra("unassigned",true);
+                            }else if (catID>-1) {
+                                intent.putExtra("catID",catID);
                             }
                             startActivity(intent);
                         }

@@ -43,6 +43,7 @@ public class EditCategory extends AppCompatActivity implements OnItemClickListen
         listView.setAdapter(adapter);
 
         listView.setOnItemClickListener(this);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
     @Override // Goes to parent activity - Back button
     public boolean onOptionsItemSelected(MenuItem item) {

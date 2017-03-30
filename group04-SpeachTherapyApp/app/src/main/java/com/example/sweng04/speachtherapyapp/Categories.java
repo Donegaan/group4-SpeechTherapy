@@ -43,6 +43,7 @@ public class Categories extends AppCompatActivity implements OnItemClickListener
 
         list.setAdapter(adapter);
         list.setOnItemClickListener(this);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 
     @Override // Goes to parent activity - Back button
@@ -50,7 +51,7 @@ public class Categories extends AppCompatActivity implements OnItemClickListener
         switch (item.getItemId()) {
             // Respond to the action bar's Up/Home button
             case android.R.id.home:
-                NavUtils.navigateUpFromSameTask(this);
+                finish();
                 return true;
         }
         return super.onOptionsItemSelected(item);
@@ -130,6 +131,7 @@ public class Categories extends AppCompatActivity implements OnItemClickListener
 
     public void unassignedClicked(View view){
         Intent intent = new Intent(Categories.this,Recordings.class);
+        intent.putExtra("key","Categories");
         intent.putExtra("unassigned",true);
         startActivity(intent);
     }
