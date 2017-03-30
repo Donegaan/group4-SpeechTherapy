@@ -34,7 +34,7 @@ public class EditRecording extends AppCompatActivity implements OnItemClickListe
     String key=""; // For back button
     int catID;
     int recID;
-    String recCorrectName;
+    String recCorrectName="";
     DatabaseOperations.Record rec;
     boolean init = true;
     boolean unassigned = false;
@@ -114,11 +114,10 @@ public class EditRecording extends AppCompatActivity implements OnItemClickListe
                 rec.setId(recID);
             }
         }
-        if (!recCorrectName.isEmpty()) {
+        if (recCorrectName!=null) {
             rec.setRecName(recCorrectName);
-            recHasName=true;
+            recHasName = true;
         }
-
         switch (position) { // Does something according to what setting is selected.
             case 0: // Name the new recording the user made
                 final AlertDialog.Builder nameBuilder = new AlertDialog.Builder(EditRecording.this); // Dialog box to enter new name.
