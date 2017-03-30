@@ -233,6 +233,7 @@ public class EditRecording extends AppCompatActivity implements OnItemClickListe
                     }else if (catID>-1) {
                         intent.putExtra("catID",catID);
                     }
+                    intent.putExtra("key", "Edit");
                     startActivity(intent);
                 }else {
 
