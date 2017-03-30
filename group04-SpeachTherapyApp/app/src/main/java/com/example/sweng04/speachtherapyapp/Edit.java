@@ -89,7 +89,7 @@ public class Edit extends AppCompatActivity implements OnItemClickListener {
     }
 
     public void onItemClick(AdapterView<?> parent, View view, int position, long id){
-        if (categories.get(position).getCatName().equals("Favourites")){
+        if (categories.get(position).getCatName().equals("Favourites") && editCats){
             Toast.makeText(Edit.this,"Cannot edit Favourites category",Toast.LENGTH_LONG).show();
         }else {
             Intent intent;

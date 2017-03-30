@@ -53,6 +53,7 @@ public class EditRecording extends AppCompatActivity implements OnItemClickListe
         unassigned=getIntent().getBooleanExtra("unassigned",false);
         recID = getIntent().getIntExtra("recID",-1);
         catID =getIntent().getIntExtra("catID",-1);
+        recCorrectName=getIntent().getStringExtra("recName");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 
@@ -113,10 +114,13 @@ public class EditRecording extends AppCompatActivity implements OnItemClickListe
                 rec.setId(recID);
             }
         }
+        if (!recCorrectName.isEmpty()) {
+            rec.setRecName(recCorrectName);
+            recHasName=true;
+        }
 
         switch (position) { // Does something according to what setting is selected.
             case 0: // Name the new recording the user made
-
                 final AlertDialog.Builder nameBuilder = new AlertDialog.Builder(EditRecording.this); // Dialog box to enter new name.
                 View nameView = getLayoutInflater().inflate(R.layout.name_recording, null);
                 final EditText nameRec = (EditText) nameView.findViewById(R.id.name_rec_box);
@@ -127,7 +131,8 @@ public class EditRecording extends AppCompatActivity implements OnItemClickListe
                 saveName.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        if (!nameRec.getText().toString().isEmpty()) {
+
+                       if(!nameRec.getText().toString().isEmpty()) {
                             Toast.makeText(EditRecording.this, "Recording name saved", Toast.LENGTH_LONG).show();
                             //Log.d("New Rec name", nameRec.getText().toString());
                             Log.d("??????????",nameRec.getText().toString() +"----------------------------------");

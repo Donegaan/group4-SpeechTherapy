@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.AdapterView.OnItemClickListener;
@@ -34,11 +35,14 @@ public class Recordings extends AppCompatActivity implements OnItemClickListener
             recordings = unassignedRecordings();
         } else {
             recordings = db.getRecCat(catID); // This gets the recordings from a specific category.
-            //recordings=db.getAllRecords(); // This gets all recordings
         }
 
         //Log.d("rec array size", recordings.size()+"");
         prevActivity = getIntent().getStringExtra("key");
+        if (prevActivity.equals("Edit")){
+            Button done = (Button) findViewById(R.id.doneEdit);
+            done.setVisibility(View.VISIBLE);
+        }
         //TODO Get Recordings saving and displaying properly
         ListView list = (ListView) findViewById(R.id.rec_list);
         recAdapter adapter = new recAdapter();
@@ -117,6 +121,7 @@ public class Recordings extends AppCompatActivity implements OnItemClickListener
             intent.putExtra("recID", recordings.get(position).getId()); // Passes the recording ID that needs to be edited.
             intent.putExtra("Key","Edit");
             intent.putExtra("catID",catID);
+            intent.putExtra("recName",recordings.get(position).getRecName());
             if (unassignedRecs) {
                 intent.putExtra("unassigned", true);
             }
@@ -125,5 +130,10 @@ public class Recordings extends AppCompatActivity implements OnItemClickListener
             //Play the recording
             Log.d("rec array size", recordings.size()+"");
         }
+    }
+
+    public void doneEdit(View view){ // Starts edit activity again.
+        Intent intent = new Intent(Recordings.this,Edit.class);
+        startActivity(intent);
     }
 }

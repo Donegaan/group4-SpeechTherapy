@@ -1,20 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical">
-
-    <ListView
-        android:id="@+id/rec_list"
+    android:layout_height="match_parent" >
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1">
-    </ListView>
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
-    <!--<TextView android:id="@android:id/empty"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="match_parent"-->
-        <!--android:textSize="40sp"-->
-        <!--android:text="@string/no_rec_saved"/>-->
+        <ListView
+            android:id="@+id/rec_list"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1">
+        </ListView>
 
-</LinearLayout>
+        <TextView android:id="@android:id/empty"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:textSize="40sp"
+            android:text="@string/no_rec_saved"/>
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/doneEdit"
+        android:layout_width="200sp"
+        android:layout_height="wrap_content"
+        android:text="@string/done_editing"
+        android:background="@color/buttonColour"
+        android:foreground="@drawable/ripple_effect"
+        android:textColor="@android:color/white"
+        android:textSize="20sp"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:onClick="doneEdit"
+        android:visibility="invisible"
+        android:layout_marginBottom="12dp" />
+
+</RelativeLayout>

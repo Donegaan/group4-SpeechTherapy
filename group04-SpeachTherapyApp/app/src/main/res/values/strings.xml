@@ -103,4 +103,5 @@
     <string name="name_category">Name Category</string>
     <string name="no_rec_saved">No recordings have been saved to this Category</string>
     <string name="unassigned_recordings">Unassigned Recordings</string>
+    <string name="done_editing">Done Editing</string>
 </resources>
