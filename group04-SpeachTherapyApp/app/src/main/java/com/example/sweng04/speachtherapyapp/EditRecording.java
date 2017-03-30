@@ -32,7 +32,7 @@ public class EditRecording extends AppCompatActivity implements OnItemClickListe
             R.drawable.save_rec};
     String filename = "";
     String key=""; // For back button
-
+    int catID;
     int recID;
     String recCorrectName;
     DatabaseOperations.Record rec;
@@ -51,6 +51,7 @@ public class EditRecording extends AppCompatActivity implements OnItemClickListe
         key = getIntent().getStringExtra("Key");
         unassigned=getIntent().getBooleanExtra("unassigned",false);
         recID = getIntent().getIntExtra("recID",-1);
+        catID =getIntent().getIntExtra("catID",-1);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 
@@ -225,9 +226,20 @@ public class EditRecording extends AppCompatActivity implements OnItemClickListe
                 }
                 Log.d("Rec ID", rec.getId()+"");
                 //Save the recording and go back to home screen.
+                if (key.equals("Edit")){
+                    Intent intent = new Intent(EditRecording.this,Recordings.class);
+                    if (unassigned){
+                        intent.putExtra("unassigned",true);
+                    }else if (catID>-1) {
+                        intent.putExtra("catID",catID);
+                    }
+                    startActivity(intent);
+                }else {
+
+                    Intent intent = new Intent(this, Homepage.class);
+                    startActivity(intent);
+                }
                 Toast.makeText(this, "Recording Saved", Toast.LENGTH_LONG).show();
-                Intent intent = new Intent(this, Homepage.class);
-                startActivity(intent);
                 break;
         }
     }

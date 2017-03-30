@@ -20,13 +20,14 @@ public class Recordings extends AppCompatActivity implements OnItemClickListener
     final DatabaseOperations db = new DatabaseOperations(this);
     String prevActivity="";
     boolean unassignedRecs;
+    int catID;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_recordings);
         db.getWritableDatabase();
-        int catID = getIntent().getIntExtra("catID", 0);
+        catID = getIntent().getIntExtra("catID", 0);
         unassignedRecs = getIntent().getBooleanExtra("unassigned", false);
         Log.d("Unassigned boolean", unassignedRecs + "");
         if (unassignedRecs) {
@@ -114,6 +115,7 @@ public class Recordings extends AppCompatActivity implements OnItemClickListener
             Intent intent = new Intent(Recordings.this, EditRecording.class);
             intent.putExtra("recID", recordings.get(position).getId()); // Passes the recording ID that needs to be edited.
             intent.putExtra("Key","Edit");
+            intent.putExtra("catID",catID);
             if (unassignedRecs) {
                 intent.putExtra("unassigned", true);
             }
