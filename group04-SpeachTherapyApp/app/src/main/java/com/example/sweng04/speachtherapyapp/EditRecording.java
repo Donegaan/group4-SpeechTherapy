@@ -32,10 +32,12 @@ public class EditRecording extends AppCompatActivity implements OnItemClickListe
             R.drawable.save_rec};
     String filename = "";
     String key=""; // For back button
+
     int recID;
     String recCorrectName;
     DatabaseOperations.Record rec;
     boolean init = true;
+    boolean unassigned = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,6 +49,7 @@ public class EditRecording extends AppCompatActivity implements OnItemClickListe
         listView.setOnItemClickListener(this);
         filename = getIntent().getStringExtra("FILENAME"); // getting filename we are editing
         key = getIntent().getStringExtra("Key");
+        unassigned=getIntent().getBooleanExtra("unassigned",false);
         recID = getIntent().getIntExtra("recID",-1);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
@@ -99,7 +102,6 @@ public class EditRecording extends AppCompatActivity implements OnItemClickListe
         if (recID==-1) {
             if(init == true) {
                 rec = new DatabaseOperations.Record();
-
                 init = false;
             }
         }else{
@@ -170,6 +172,9 @@ public class EditRecording extends AppCompatActivity implements OnItemClickListe
                             //Will go back to previous page to display the list of recordings.
                             Intent intent = new Intent(EditRecording.this, Recordings.class);
                             intent.putExtra("key", "Edit");
+                            if (unassigned){
+                                intent.putExtra("unassigned",true);
+                            }
                             startActivity(intent);
                         }
                     }

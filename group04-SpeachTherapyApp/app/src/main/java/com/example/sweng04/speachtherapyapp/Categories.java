@@ -130,7 +130,7 @@ public class Categories extends AppCompatActivity implements OnItemClickListener
 
     public void unassignedClicked(View view){
         Intent intent = new Intent(Categories.this,Recordings.class);
-        intent.putExtra("unassignedRecs",true);
+        intent.putExtra("unassigned",true);
         startActivity(intent);
     }
 }

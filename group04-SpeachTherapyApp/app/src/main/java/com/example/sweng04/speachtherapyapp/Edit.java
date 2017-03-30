@@ -99,4 +99,11 @@ public class Edit extends AppCompatActivity implements OnItemClickListener {
         intent.putExtra("catID", categories.get(position).getId());
         startActivity(intent);
     }
+
+    public void unassignedClicked(View view){
+        Intent intent = new Intent(Edit.this,Recordings.class);
+        intent.putExtra("unassigned",true);
+        intent.putExtra("key", "Edit");
+        startActivity(intent);
+    }
 }
