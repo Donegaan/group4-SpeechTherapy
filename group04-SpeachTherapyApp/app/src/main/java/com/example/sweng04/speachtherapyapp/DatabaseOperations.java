@@ -34,7 +34,7 @@ public class DatabaseOperations extends SQLiteOpenHelper {
     //---||||||| TABLE CREATION |||||||---
     private static final String CREATE_TABLE_CAT = "CREATE TABLE "
             + TABLE_CATEGORY + " (" + CAT_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
-            + CAT_NAME + " TEXT )" ;
+            + CAT_NAME + " TEXT )";
     //---||||||| END OF TABLE CREATION |||||||---
 
     //-----------------RECORDING TABLE-----------------
@@ -46,34 +46,34 @@ public class DatabaseOperations extends SQLiteOpenHelper {
     //---||||||| TABLE CREATION |||||||---
     private static final String CREATE_TABLE_REC = "CREATE TABLE "
             + TABLE_RECORDING + " (" + REC_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
-            + REC_NAME + " TEXT )" ;
+            + REC_NAME + " TEXT )";
     //---||||||| END OF TABLE CREATION |||||||---
 
     //-----------------CAT - REC TABLE-----------------
     private static final String CREATE_TABLE_CAT_REC = "CREATE TABLE "
             + TABLE_CAT_REC + " ( " + CAT_ID + " INTEGER NOT NULL REFERENCES "
-            + TABLE_CATEGORY +   " ( " + CAT_ID + " ), "
+            + TABLE_CATEGORY + " ( " + CAT_ID + " ), "
             + REC_ID + " INTEGER NOT NULL REFERENCES "
-            + TABLE_RECORDING +  " ( " + REC_ID + " ), "
+            + TABLE_RECORDING + " ( " + REC_ID + " ), "
             + "PRIMARY KEY( " + CAT_ID + ", " + REC_ID + " ))";
 
     //---- END OF ALL TABLE CREATION ---- END OF ALL TABLE CREATION ---- END OF ALL TABLE CREATION ----
 
-    public DatabaseOperations(Context context){
+    public DatabaseOperations(Context context) {
 
         super(context, TableData.Recordings.REC_NAME, null, database_version);
     }
 
 
     @Override
-    public void onCreate(SQLiteDatabase db){
+    public void onCreate(SQLiteDatabase db) {
         db.execSQL(CREATE_TABLE_CAT);
         db.execSQL(CREATE_TABLE_REC);
         db.execSQL(CREATE_TABLE_CAT_REC);
     }
 
     @Override
-    public void onUpgrade(SQLiteDatabase arg0, int arg1, int arg2){
+    public void onUpgrade(SQLiteDatabase arg0, int arg1, int arg2) {
         //
     }
 
@@ -85,7 +85,12 @@ public class DatabaseOperations extends SQLiteOpenHelper {
         int id;
         String rec_name;
         String location;
-        public Record(){};
+
+        public Record() {
+        }
+
+        ;
+
         public Record(String rec_name) {
             this.rec_name = rec_name;
         }
@@ -108,18 +113,18 @@ public class DatabaseOperations extends SQLiteOpenHelper {
             return this.rec_name;
         }
 
-        public void setLocation(String location){
+        public void setLocation(String location) {
             this.location = location;
         }
 
-        public String getLocation(){
+        public String getLocation() {
             return this.location;
         }
     }
 
 
     // inserts project into project table
-    public long createRecord(Record record){
+    public long createRecord(Record record) {
         SQLiteDatabase db = this.getWritableDatabase();
 
         ContentValues values = new ContentValues();
@@ -133,9 +138,9 @@ public class DatabaseOperations extends SQLiteOpenHelper {
     }
 
     // fetches list of all recordings in Record Table
-    public ArrayList<Record> getAllRecords(){
+    public ArrayList<Record> getAllRecords() {
         ArrayList<Record> recordings = new ArrayList<Record>();
-        String selectQuery = "SELECT " +  REC_ID + " , " + REC_NAME+ " FROM " + TABLE_RECORDING;
+        String selectQuery = "SELECT " + REC_ID + " , " + REC_NAME + " FROM " + TABLE_RECORDING;
 
         Log.e(LOG, selectQuery);
 
@@ -158,16 +163,16 @@ public class DatabaseOperations extends SQLiteOpenHelper {
     }
 
     // fetch single project from project table
-    public Record getRec(long rec_id){
+    public Record getRec(long rec_id) {
         String selectQuery = "SELECT " + REC_ID + " , " + REC_NAME
-                +" FROM " + TABLE_RECORDING
+                + " FROM " + TABLE_RECORDING
                 + " WHERE " + REC_ID + " = " + rec_id;
         Log.e(LOG, selectQuery);
 
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor c = db.rawQuery(selectQuery, null);
 
-        if (c != null){
+        if (c != null) {
             c.moveToFirst();
         }
         Record rec = new Record();
@@ -181,7 +186,7 @@ public class DatabaseOperations extends SQLiteOpenHelper {
     public void deleteRec(long rec_id) {
         SQLiteDatabase db = this.getWritableDatabase();
         db.delete(TABLE_RECORDING, REC_ID + " = ?",
-                new String[] { String.valueOf(rec_id) });
+                new String[]{String.valueOf(rec_id)});
     }
 
     // Update name of Recording
@@ -193,20 +198,26 @@ public class DatabaseOperations extends SQLiteOpenHelper {
 
         // updating row
         return db.update(TABLE_RECORDING, values, REC_ID + " = ?",
-                new String[] { String.valueOf(record.getId()) });
+                new String[]{String.valueOf(record.getId())});
     }
 
 
     //--------------------CAT--------------------CAT--------------------CAT--------------------
 
-    public Category newCat(){
-        return new Category();}
+    public Category newCat() {
+        return new Category();
+    }
 
     public static class Category {
 
         int id;
         String cat_name;
-        public Category(){};
+
+        public Category() {
+        }
+
+        ;
+
         public Category(String cat_name) {
             this.cat_name = cat_name;
         }
@@ -231,7 +242,7 @@ public class DatabaseOperations extends SQLiteOpenHelper {
     }
 
     // inserts project into project table
-    public long createCategory(Category category){
+    public long createCategory(Category category) {
         SQLiteDatabase db = this.getWritableDatabase();
 
         ContentValues values = new ContentValues();
@@ -244,7 +255,7 @@ public class DatabaseOperations extends SQLiteOpenHelper {
     }
 
     // fetches list of all recordings in Record Table
-    public ArrayList<Category> getAllCategories(){
+    public ArrayList<Category> getAllCategories() {
         ArrayList<Category> categorys = new ArrayList<Category>();
         String selectQuery = "SELECT * FROM " + TABLE_CATEGORY;
 
@@ -269,7 +280,7 @@ public class DatabaseOperations extends SQLiteOpenHelper {
     }
 
     // fetch single project from project table
-    public Category getCat(long cat_id){
+    public Category getCat(long cat_id) {
         String selectQuery = "SELECT * FROM " + TABLE_CATEGORY
                 + " WHERE " + CAT_ID + " = " + cat_id;
         Log.e(LOG, selectQuery);
@@ -277,7 +288,7 @@ public class DatabaseOperations extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor c = db.rawQuery(selectQuery, null);
 
-        if (c != null){
+        if (c != null) {
             c.moveToFirst();
         }
         Category cat = new Category();
@@ -290,7 +301,7 @@ public class DatabaseOperations extends SQLiteOpenHelper {
     public void deleteCat(long cat_id) {
         SQLiteDatabase db = this.getWritableDatabase();
         db.delete(TABLE_CATEGORY, CAT_ID + " = ?",
-                new String[] { String.valueOf(cat_id) });
+                new String[]{String.valueOf(cat_id)});
     }
 
     // update category name
@@ -302,7 +313,7 @@ public class DatabaseOperations extends SQLiteOpenHelper {
 
         // updating row
         return db.update(TABLE_CATEGORY, values, CAT_ID + " = ?",
-                new String[] { String.valueOf(category.getId()) });
+                new String[]{String.valueOf(category.getId())});
     }
 
     //--------------------CAT-REC--------------------CAT-REC--------------------CAT-REC--------------------
@@ -321,10 +332,10 @@ public class DatabaseOperations extends SQLiteOpenHelper {
     }
 
     // fetches all categories connected to a certain recording
-    public ArrayList<Category> getCatRec(long rec_id){
+    public ArrayList<Category> getCatRec(long rec_id) {
         ArrayList<Category> categories = new ArrayList<Category>();
         String selectQuery = "SELECT" + TABLE_CATEGORY + "." + CAT_ID + "," + TABLE_CATEGORY + "." + CAT_NAME
-                + " FROM " + TABLE_CAT_REC + ", "+ TABLE_CATEGORY
+                + " FROM " + TABLE_CAT_REC + ", " + TABLE_CATEGORY
                 + " WHERE " + TABLE_CAT_REC + "." + REC_ID + " = " + rec_id
                 + " AND " + TABLE_CATEGORY + "." + CAT_ID + " = " + TABLE_CAT_REC + "." + CAT_ID;
 
@@ -347,10 +358,10 @@ public class DatabaseOperations extends SQLiteOpenHelper {
     }
 
     // fetches all recording connected to a certain categories
-    public ArrayList<Record> getRecCat(long cat_id){
+    public ArrayList<Record> getRecCat(long cat_id) {
         ArrayList<Record> recordings = new ArrayList<Record>();
-        String selectQuery = "SELECT " + TABLE_RECORDING + "." + REC_ID + ", "+ TABLE_RECORDING + "." + REC_NAME
-                + " FROM " + TABLE_CAT_REC + ", "+ TABLE_RECORDING
+        String selectQuery = "SELECT " + TABLE_RECORDING + "." + REC_ID + ", " + TABLE_RECORDING + "." + REC_NAME
+                + " FROM " + TABLE_CAT_REC + ", " + TABLE_RECORDING
                 + " WHERE " + TABLE_CAT_REC + "." + CAT_ID + " = " + cat_id
                 + " AND " + TABLE_RECORDING + "." + REC_ID + " = " + TABLE_CAT_REC + "." + REC_ID;
 
@@ -373,13 +384,13 @@ public class DatabaseOperations extends SQLiteOpenHelper {
         return recordings;
     }
 
-    // fetches all recording connected to a certain categories
-    public ArrayList<Record> getAssignedRec(){
+    // fetches all unassigned recordings
+    public ArrayList<Record> getAssignedRec() {
         ArrayList<Record> recordings = new ArrayList<Record>();
         //String selectQuery = "SELECT " + REC_ID + " FROM " + TABLE_CAT_REC;
 
-        String selectQuery = "SELECT " + TABLE_RECORDING + "." + REC_ID + ", "+ TABLE_RECORDING + "." + REC_NAME
-                + " FROM " + TABLE_CAT_REC + ", "+ TABLE_RECORDING
+        String selectQuery = "SELECT " + TABLE_RECORDING + "." + REC_ID + ", " + TABLE_RECORDING + "." + REC_NAME
+                + " FROM " + TABLE_CAT_REC + ", " + TABLE_RECORDING
                 + " WHERE " + TABLE_CAT_REC + "." + REC_ID + " = " + TABLE_RECORDING + " . " + REC_ID;
 
         Log.e(LOG, selectQuery);
@@ -405,14 +416,20 @@ public class DatabaseOperations extends SQLiteOpenHelper {
     public void deleteCatRec(long cat) {
         SQLiteDatabase db = this.getWritableDatabase();
         db.delete(TABLE_CAT_REC, CAT_ID + " = ?",
-                new String[] { String.valueOf(cat) });
+                new String[]{String.valueOf(cat)});
     }
 
     // delete recording from Category-Recording table
     public void deleteRecCat(long rec) {
         SQLiteDatabase db = this.getWritableDatabase();
         db.delete(TABLE_CAT_REC, REC_ID + " = ?",
-                new String[] { String.valueOf(rec) });
+                new String[]{String.valueOf(rec)});
     }
 
+    // delete row from CAT_REC table depeding on ID of both recording and category
+    public void deleteRecInCat(long rec, long cat) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.delete(TABLE_CAT_REC, REC_ID + " = ? AND " + CAT_ID + " = ?",
+                new String[]{String.valueOf(rec),String.valueOf(cat)});
+    }
 }
