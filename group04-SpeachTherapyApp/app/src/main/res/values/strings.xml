@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">SpeechTherapyApp</string>
+    <string name="app_name">Speech Therapy</string>
     <string name="title_activity_record">Record</string>
     <string name="Recordings">Recordings</string>
     <string name="Categories">Categories</string>

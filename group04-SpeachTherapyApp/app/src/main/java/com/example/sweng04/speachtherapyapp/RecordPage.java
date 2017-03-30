@@ -56,19 +56,6 @@ public class RecordPage extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-//    public void backToHome(View view){ // Back button
-//        if (!firstPress){
-//            try {
-//                recorder.stopRecording();
-//            } catch (Exception e) {
-//                e.printStackTrace();
-//            }
-//            //TODO: Delete
-//            //end recording and delete it.
-//        }
-//        Intent intent = new Intent(this,Homepage.class);
-//        startActivity(intent);
-//    }
 
     boolean firstPress=true;
     public void recording(View view){
