@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.support.v4.app.NavUtils;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,7 +16,6 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Toast;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class Edit extends AppCompatActivity implements OnItemClickListener {
     ArrayList <DatabaseOperations.Category> categories = new ArrayList<DatabaseOperations.Category>();
@@ -66,7 +64,7 @@ public class Edit extends AppCompatActivity implements OnItemClickListener {
         }
     }
 
-    public void editCatPress(View view){
+    public void editCatPress(View view){ // The top button has been pressed which indicates the user wants to edit a category.
         if (editCats==false) {
             editCats = true;
             Button btn = (Button) findViewById(R.id.edit_categories_button);
@@ -97,20 +95,18 @@ public class Edit extends AppCompatActivity implements OnItemClickListener {
             }
         }
         if (!favClick){
-                Intent intent;
-                if (editCats) { // If the edit category button has been pressed then go to the edit category page for this specific category.
-                    intent = new Intent(this, EditCategory.class);
-                    intent.putExtra("catName", categories.get(position).getCatName());
-                } else {
-                    intent = new Intent(this, Recordings.class);
-                    intent.putExtra("key", "Edit");
-
-                }
-                //Log.d("Cat ID", categories.get(position).getId()+"");
-                intent.putExtra("catID", categories.get(position).getId());
-                startActivity(intent);
+            Intent intent;
+            if (editCats) { // If the edit category button has been pressed then go to the edit category page for this specific category.
+                intent = new Intent(this, EditCategory.class);
+                intent.putExtra("catName", categories.get(position).getCatName());
+            } else {
+                intent = new Intent(this, Recordings.class);
+                intent.putExtra("key", "Edit");
+            }
+            intent.putExtra("catID", categories.get(position).getId());
+            startActivity(intent);
         }
-
+        favClick=false;
     }
 
     public void unassignedClicked(View view){

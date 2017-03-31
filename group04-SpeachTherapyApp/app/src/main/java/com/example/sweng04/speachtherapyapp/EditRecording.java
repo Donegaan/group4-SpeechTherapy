@@ -23,13 +23,19 @@ import android.media.MediaPlayer;
 import android.net.Uri;
 
 import java.io.File;
+import java.util.ArrayList;
+import java.util.Arrays;
 
 public class EditRecording extends AppCompatActivity implements OnItemClickListener {
     final DatabaseOperations db = new DatabaseOperations(EditRecording.this);
-    String[] settingsArray = {"Name Recording", "Preview Recording", "Delete Recording", "Record Again","Add to a Category",
-            "Save Recording"};
-    int [] icons = {R.drawable.name_rec,R.drawable.play_button,R.drawable.delete_button,R.drawable.replay_rec,R.drawable.add_button,
-            R.drawable.save_rec};
+//    String[] settingsArray = {"Name Recording", "Preview Recording", "Delete Recording", "Record Again","Add to a Category",
+//            "Save Recording"};
+    ArrayList<String>settingsArray = new ArrayList<>(Arrays.asList("Name Recording", "Preview Recording", "Delete Recording", "Record Again",
+        "Add to a Category"));
+    ArrayList<Integer>icons = new ArrayList<>();
+
+//    int [] icons = {R.drawable.name_rec,R.drawable.play_button,R.drawable.delete_button,R.drawable.replay_rec,R.drawable.add_button,
+//            R.drawable.save_rec};
     String filename = "";
     String key=""; // For back button
     int catID;
@@ -50,6 +56,17 @@ public class EditRecording extends AppCompatActivity implements OnItemClickListe
         listView.setOnItemClickListener(this);
         filename = getIntent().getStringExtra("FILENAME"); // getting filename we are editing
         key = getIntent().getStringExtra("Key");
+        icons.add(R.drawable.name_rec);
+        icons.add(R.drawable.play_button);
+        icons.add(R.drawable.delete_button);
+        icons.add(R.drawable.replay_rec);
+        icons.add(R.drawable.add_button);
+        if (key.equals("Edit")){
+            settingsArray.add("Remove from Category");
+            icons.add(R.drawable.remove_button);
+        }
+        settingsArray.add("Save Recording");
+        icons.add(R.drawable.save_rec);
         unassigned=getIntent().getBooleanExtra("unassigned",false);
         recID = getIntent().getIntExtra("recID",-1);
         catID =getIntent().getIntExtra("catID",-1);
@@ -72,7 +89,7 @@ public class EditRecording extends AppCompatActivity implements OnItemClickListe
 
         @Override
         public int getCount() {
-            return icons.length;
+            return icons.size();
         }
 
         @Override
@@ -92,8 +109,8 @@ public class EditRecording extends AppCompatActivity implements OnItemClickListe
             }
             ImageView icon = (ImageView) view.findViewById(R.id.edit_icon);
             TextView setting = (TextView) view.findViewById(R.id.edit_rec_text);
-            setting.setText(settingsArray[position]);
-            icon.setImageResource(icons[position]);
+            setting.setText(settingsArray.get(position));
+            icon.setImageResource(icons.get(position));
             return view;
         }
     }
@@ -133,7 +150,6 @@ public class EditRecording extends AppCompatActivity implements OnItemClickListe
                 saveName.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-
                        if(!nameRec.getText().toString().isEmpty()) {
                             Toast.makeText(EditRecording.this, "Recording name saved", Toast.LENGTH_LONG).show();
                             //Log.d("New Rec name", nameRec.getText().toString());
@@ -228,30 +244,41 @@ public class EditRecording extends AppCompatActivity implements OnItemClickListe
                 startActivity(intent2);
                 break;
             case 5:
-                if (recHasName) {
-                    rec.setRecName(recCorrectName);
-                    db.updateRecord(rec);
-                    Toast.makeText(this, "Recording Saved", Toast.LENGTH_LONG).show();
-                    Log.d("Rec ID", rec.getId() + "");
-                    //Save the recording and go back to home screen.
-                    if (key.equals("Edit")) {
-                        Intent intent = new Intent(EditRecording.this, Recordings.class);
-                        if (unassigned) {
-                            intent.putExtra("unassigned", true);
-                        } else if (catID > -1) {
-                            intent.putExtra("catID", catID);
-                        }
-                        intent.putExtra("key", "Edit");
-                        startActivity(intent);
-                    } else {
-                        Intent intent = new Intent(this, Homepage.class);
-                        startActivity(intent);
-                    }
+                if (!key.equals("Edit")) {
+                    saveRecording();
                 }else{
-                    Toast.makeText(EditRecording.this,"Recording name is blank, cannot save.",Toast.LENGTH_LONG).show();
+                    //remove recording
+                    db.deleteRecInCat(rec.getId(),catID);
                 }
-
                 break;
+            case 6:
+                saveRecording();
+                break;
+        }
+    }
+
+    public void saveRecording(){
+        if (recHasName) {
+            rec.setRecName(recCorrectName);
+            db.updateRecord(rec);
+            Toast.makeText(this, "Recording Saved", Toast.LENGTH_LONG).show();
+            Log.d("Rec ID", rec.getId() + "");
+            //Save the recording and go back to home screen.
+            if (key.equals("Edit")) {
+                Intent intent = new Intent(EditRecording.this, Recordings.class);
+                if (unassigned) {
+                    intent.putExtra("unassigned", true);
+                } else if (catID > -1) {
+                    intent.putExtra("catID", catID);
+                }
+                intent.putExtra("key", "Edit");
+                startActivity(intent);
+            } else {
+                Intent intent = new Intent(this, Homepage.class);
+                startActivity(intent);
+            }
+        } else {
+            Toast.makeText(EditRecording.this, "Recording name is blank, cannot save.", Toast.LENGTH_LONG).show();
         }
     }
 
