@@ -102,7 +102,7 @@ public class Recordings extends AppCompatActivity implements OnItemClickListener
         for (int i=0; i<allRecs.size();i++){
             boolean assigned=false;
             for (int j=0;j<allAssignedRecs.size();j++){
-                if (allAssignedRecs.get(j)==allRecs.get(i)){
+                if (allAssignedRecs.get(j).getId()==allRecs.get(i).getId()){
                     assigned=true;
                     break;
                 }

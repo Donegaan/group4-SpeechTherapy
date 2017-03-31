@@ -96,11 +96,15 @@ public class Categories extends AppCompatActivity implements OnItemClickListener
         db.getWritableDatabase();
         DatabaseOperations.Category newCat = new DatabaseOperations.Category();
         String catName = mEditText.getText().toString();
-        newCat.setCatName(catName);
-        db.createCategory(newCat);
-        categories = db.getAllCategories();
-        Toast.makeText(this, catName+" has been added to Categories", Toast.LENGTH_SHORT).show();
-        adapter.notifyDataSetChanged();
+        if (!catName.isEmpty()) {
+            newCat.setCatName(catName);
+            db.createCategory(newCat);
+            categories = db.getAllCategories();
+            Toast.makeText(this, catName + " has been added to Categories", Toast.LENGTH_SHORT).show();
+            adapter.notifyDataSetChanged();
+        }else{
+            Toast.makeText(this, "Cannot add blank Category.", Toast.LENGTH_LONG).show();
+        }
     }
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         if (recID==-1){

@@ -62,7 +62,7 @@ public class EditRecording extends AppCompatActivity implements OnItemClickListe
         switch (item.getItemId()) {
             // Respond to the action bar's Up/Home button
             case android.R.id.home:
-                NavUtils.navigateUpFromSameTask(this);
+                finish();
                 return true;
         }
         return super.onOptionsItemSelected(item);
@@ -100,11 +100,13 @@ public class EditRecording extends AppCompatActivity implements OnItemClickListe
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
+        long recid=0;
         db.getWritableDatabase();
         if (recID==-1) {
             if(init == true) {
                 rec = new DatabaseOperations.Record();
+                recid = db.createRecord(rec);
+                rec.setId((int)recid);
                 init = false;
             }
         }else{
@@ -123,6 +125,7 @@ public class EditRecording extends AppCompatActivity implements OnItemClickListe
                 final AlertDialog.Builder nameBuilder = new AlertDialog.Builder(EditRecording.this); // Dialog box to enter new name.
                 View nameView = getLayoutInflater().inflate(R.layout.name_recording, null);
                 final EditText nameRec = (EditText) nameView.findViewById(R.id.name_rec_box);
+                nameRec.setText(recCorrectName);
                 Button saveName = (Button) nameView.findViewById(R.id.save_name);
                 nameBuilder.setView(nameView);
                 final AlertDialog dialog = nameBuilder.create();
@@ -226,13 +229,13 @@ public class EditRecording extends AppCompatActivity implements OnItemClickListe
                 break;
             case 5:
                 if (recHasName) {
-                    if (recID == -1) { // If its a new recording.
-                        Log.d("Rec name", rec.getRecName() + "?????????????????????????");
-                        //rec.setRecName(recCorrectName);
-                        db.createRecord(rec);
-                    } else {
-                        db.updateRecord(rec);
-                    }
+//                    if (recID == -1) { // If its a new recording.
+//                        Log.d("Rec name", rec.getRecName() + "?????????????????????????");
+                    rec.setRecName(recCorrectName);
+//                        //db.createRecord(rec);
+//                    } else {
+                    db.updateRecord(rec);
+                    //}
                     Toast.makeText(this, "Recording Saved", Toast.LENGTH_LONG).show();
 
                     Log.d("Rec ID", rec.getId() + "");
