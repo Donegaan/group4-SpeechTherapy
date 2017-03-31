@@ -137,9 +137,9 @@ public class EditRecording extends AppCompatActivity implements OnItemClickListe
                        if(!nameRec.getText().toString().isEmpty()) {
                             Toast.makeText(EditRecording.this, "Recording name saved", Toast.LENGTH_LONG).show();
                             //Log.d("New Rec name", nameRec.getText().toString());
-                            Log.d("??????????",nameRec.getText().toString() +"----------------------------------");
+                            //Log.d("??????????",nameRec.getText().toString() +"----------------------------------");
                             rec.setRecName(nameRec.getText().toString()); // Save recording name
-                            Log.d("Rec name",rec.getRecName() +"----------------------------------");
+                            //Log.d("Rec name",rec.getRecName() +"----------------------------------");
                             recCorrectName = rec.getRecName();
                             dialog.dismiss();
                             recHasName=true;
@@ -229,15 +229,9 @@ public class EditRecording extends AppCompatActivity implements OnItemClickListe
                 break;
             case 5:
                 if (recHasName) {
-//                    if (recID == -1) { // If its a new recording.
-//                        Log.d("Rec name", rec.getRecName() + "?????????????????????????");
                     rec.setRecName(recCorrectName);
-//                        //db.createRecord(rec);
-//                    } else {
                     db.updateRecord(rec);
-                    //}
                     Toast.makeText(this, "Recording Saved", Toast.LENGTH_LONG).show();
-
                     Log.d("Rec ID", rec.getId() + "");
                     //Save the recording and go back to home screen.
                     if (key.equals("Edit")) {

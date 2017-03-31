@@ -28,7 +28,8 @@ public class EditCategory extends AppCompatActivity implements OnItemClickListen
     String[] catSettings = {"Rename Category", "Delete Category", "Save Category"};
     int[] icons = {R.drawable.name_rec, R.drawable.delete_button,R.drawable.save_rec};
     int catID;
-    String newName;
+    String newName="";
+    boolean hasName=false;
 
 
     @Override
@@ -36,6 +37,7 @@ public class EditCategory extends AppCompatActivity implements OnItemClickListen
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_category);
         catID = getIntent().getIntExtra("catID",0);
+        newName=getIntent().getStringExtra("catName");
         ListView listView = (ListView) findViewById(R.id.edit_cat_list); // Display Edit settings for new recording.
 
         MyAdapter adapter = new MyAdapter();
@@ -59,12 +61,18 @@ public class EditCategory extends AppCompatActivity implements OnItemClickListen
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         db.getWritableDatabase();
+
         final DatabaseOperations.Category cat = db.getCat(catID);
+        if (newName!=null){
+            cat.setCatName(newName);
+            hasName=true;
+        }
         switch (position){
             case 0: // Rename the category
                 final AlertDialog.Builder nameBuilder = new AlertDialog.Builder(EditCategory.this); // Dialog box to enter new name.
                 View nameView = getLayoutInflater().inflate(R.layout.name_category, null);
                 final EditText nameCat = (EditText) nameView.findViewById(R.id.name_cat_box);
+                nameCat.setText(newName);
                 Button saveName = (Button) nameView.findViewById(R.id.save_name);
                 nameBuilder.setView(nameView);
                 final AlertDialog dialog = nameBuilder.create();
@@ -78,8 +86,8 @@ public class EditCategory extends AppCompatActivity implements OnItemClickListen
                             Log.d("New cat name", nameCat.getText().toString());
                             //Saves the updated name for later;
                             newName = nameCat.getText().toString();
-                            //cat.setCatName(nameCat.getText().toString()); // Save recording name
                             dialog.dismiss();
+                            hasName=true;
                         } else {
                             Toast.makeText(EditCategory.this, "Enter a category name", Toast.LENGTH_LONG).show();
                         }
@@ -107,10 +115,14 @@ public class EditCategory extends AppCompatActivity implements OnItemClickListen
                 break;
             case 2: // Save Category
                 //We're changing the name here
-                cat.setCatName(newName);
-                db.updateCategory(cat);
-                Toast.makeText(this, "Category Saved", Toast.LENGTH_LONG).show();
-                startActivity(new Intent(EditCategory.this,Edit.class));
+                if (hasName) {
+                    cat.setCatName(newName);
+                    db.updateCategory(cat);
+                    Toast.makeText(this, "Category Saved", Toast.LENGTH_LONG).show();
+                    startActivity(new Intent(EditCategory.this, Edit.class));
+                }else{
+                    Toast.makeText(EditCategory.this,"Category name is blank, cannot save.",Toast.LENGTH_LONG).show();
+                }
                 break;
         }
 
