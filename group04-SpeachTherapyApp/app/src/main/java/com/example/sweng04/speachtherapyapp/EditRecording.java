@@ -124,6 +124,8 @@ public class EditRecording extends AppCompatActivity implements OnItemClickListe
                 rec = new DatabaseOperations.Record();
                 recid = db.createRecord(rec);
                 rec.setId((int)recid);
+                rec.setLocation(filename+".wav");
+                Log.d("Set location line 128", rec.getLocation());
                 init = false;
             }
         }else{
@@ -131,6 +133,8 @@ public class EditRecording extends AppCompatActivity implements OnItemClickListe
                 rec=db.getRec(recID);
             }else {
                 rec.setId(recID);
+                rec.setLocation(filename+".wav");
+                Log.d("Set location line 137", rec.getLocation());
             }
         }
         if (recCorrectName!=null) {
@@ -220,7 +224,6 @@ public class EditRecording extends AppCompatActivity implements OnItemClickListe
                 alert2.setTitle("Record again");
                 alert2.setMessage("Are you sure you want to record again and delete the current recording?");
                 alert2.setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
-
                     public void onClick(DialogInterface dialog, int which) {
                         // continue with delete
                         db.deleteRec(rec.id);
@@ -260,6 +263,8 @@ public class EditRecording extends AppCompatActivity implements OnItemClickListe
     public void saveRecording(){
         if (recHasName) {
             rec.setRecName(recCorrectName);
+            rec.setLocation(filename+".wav");
+            Log.d("Set location line 265", rec.getLocation());
             db.updateRecord(rec);
             Toast.makeText(this, "Recording Saved", Toast.LENGTH_LONG).show();
             Log.d("Rec ID", rec.getId() + "");

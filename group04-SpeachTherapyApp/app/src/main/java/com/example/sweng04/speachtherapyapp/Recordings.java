@@ -1,6 +1,8 @@
 package com.example.sweng04.speachtherapyapp;
 
 import android.content.Intent;
+import android.media.MediaPlayer;
+import android.net.Uri;
 import android.support.v4.app.NavUtils;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -128,6 +130,16 @@ public class Recordings extends AppCompatActivity implements OnItemClickListener
             startActivity(intent);
         }else if (prevActivity.equals("Categories")){
             //Play the recording
+            Log.d("Attempting to play", recordings.get(position).getRecName());
+            Log.d("Attempting to play", getExternalFilesDir(null).getAbsolutePath() +"/"+recordings.get(position).getLocation());
+            MediaPlayer playback = MediaPlayer.create(this, Uri.parse(getExternalFilesDir(null).getAbsolutePath() +"/"+recordings.get(position).getLocation()));
+            playback.setLooping(true);
+            playback.setOnCompletionListener(new MediaPlayer.OnCompletionListener(){
+                public void onCompletion(MediaPlayer mp) {
+                    mp.release();
+                }
+            });
+            playback.start();
             Log.d("rec array size", recordings.size()+"");
         }
     }

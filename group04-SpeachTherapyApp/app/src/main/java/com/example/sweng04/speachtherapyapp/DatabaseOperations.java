@@ -46,7 +46,7 @@ public class DatabaseOperations extends SQLiteOpenHelper {
     //---||||||| TABLE CREATION |||||||---
     private static final String CREATE_TABLE_REC = "CREATE TABLE "
             + TABLE_RECORDING + " (" + REC_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
-            + REC_NAME + " TEXT )";
+            + REC_NAME + " TEXT," + REC_LOC + " TEXT)";
     //---||||||| END OF TABLE CREATION |||||||---
 
     //-----------------CAT - REC TABLE-----------------
@@ -129,7 +129,7 @@ public class DatabaseOperations extends SQLiteOpenHelper {
 
         ContentValues values = new ContentValues();
         values.put(REC_NAME, record.getRecName());
-        //values.put(REC_LOC, record.getLocation());
+        values.put(REC_LOC, record.getLocation());
 
         // insert row
         long rec_id = db.insert(TABLE_RECORDING, null, values);
@@ -140,7 +140,7 @@ public class DatabaseOperations extends SQLiteOpenHelper {
     // fetches list of all recordings in Record Table
     public ArrayList<Record> getAllRecords() {
         ArrayList<Record> recordings = new ArrayList<Record>();
-        String selectQuery = "SELECT " + REC_ID + " , " + REC_NAME + " FROM " + TABLE_RECORDING;
+        String selectQuery = "SELECT " + REC_ID + " , " + REC_NAME + " , " + REC_LOC + " FROM " + TABLE_RECORDING;
 
         Log.e(LOG, selectQuery);
 
@@ -153,7 +153,7 @@ public class DatabaseOperations extends SQLiteOpenHelper {
                 Record rec = new Record();
                 rec.setId(c.getInt((c.getColumnIndex(REC_ID))));
                 rec.setRecName((c.getString(c.getColumnIndex(REC_NAME))));
-
+                rec.setLocation((c.getString(c.getColumnIndex(REC_LOC))));
                 // adding to todo list
                 recordings.add(rec);
             } while (c.moveToNext());
@@ -164,7 +164,7 @@ public class DatabaseOperations extends SQLiteOpenHelper {
 
     // fetch single project from project table
     public Record getRec(long rec_id) {
-        String selectQuery = "SELECT " + REC_ID + " , " + REC_NAME
+        String selectQuery = "SELECT " + REC_ID + " , " + REC_NAME + " , " + REC_LOC
                 + " FROM " + TABLE_RECORDING
                 + " WHERE " + REC_ID + " = " + rec_id;
         Log.e(LOG, selectQuery);
@@ -178,6 +178,7 @@ public class DatabaseOperations extends SQLiteOpenHelper {
         Record rec = new Record();
         rec.setId(c.getInt(c.getColumnIndex(REC_ID)));
         rec.setRecName(c.getString(c.getColumnIndex(REC_NAME)));
+        rec.setLocation(c.getString(c.getColumnIndex(REC_LOC)));
 
         return rec;
     }
@@ -195,7 +196,7 @@ public class DatabaseOperations extends SQLiteOpenHelper {
 
         ContentValues values = new ContentValues();
         values.put(REC_NAME, record.getRecName());
-
+        values.put(REC_LOC, record.getLocation());
         // updating row
         return db.update(TABLE_RECORDING, values, REC_ID + " = ?",
                 new String[]{String.valueOf(record.getId())});
@@ -361,6 +362,7 @@ public class DatabaseOperations extends SQLiteOpenHelper {
     public ArrayList<Record> getRecCat(long cat_id) {
         ArrayList<Record> recordings = new ArrayList<Record>();
         String selectQuery = "SELECT " + TABLE_RECORDING + "." + REC_ID + ", " + TABLE_RECORDING + "." + REC_NAME
+                + ", " + TABLE_RECORDING + "." + REC_LOC
                 + " FROM " + TABLE_CAT_REC + ", " + TABLE_RECORDING
                 + " WHERE " + TABLE_CAT_REC + "." + CAT_ID + " = " + cat_id
                 + " AND " + TABLE_RECORDING + "." + REC_ID + " = " + TABLE_CAT_REC + "." + REC_ID;
@@ -374,8 +376,9 @@ public class DatabaseOperations extends SQLiteOpenHelper {
         if (c.moveToFirst()) {
             do {
                 Record rec = new Record();
-                rec.setId(c.getInt((c.getColumnIndex(REC_ID))));
-                rec.setRecName((c.getString(c.getColumnIndex(REC_NAME))));
+                rec.setId(c.getInt(c.getColumnIndex(REC_ID)));
+                rec.setRecName(c.getString(c.getColumnIndex(REC_NAME)));
+                rec.setLocation(c.getString(c.getColumnIndex(REC_LOC)));
                 //obj.setReturn_date((c.getString(c.getColumnIndex(OBJ_RETURN_DATE))));
                 // adding to todo list
                 recordings.add(rec);
@@ -390,6 +393,7 @@ public class DatabaseOperations extends SQLiteOpenHelper {
         //String selectQuery = "SELECT " + REC_ID + " FROM " + TABLE_CAT_REC;
 
         String selectQuery = "SELECT " + TABLE_RECORDING + "." + REC_ID + ", " + TABLE_RECORDING + "." + REC_NAME
+                + ", " + TABLE_RECORDING + "." + REC_LOC
                 + " FROM " + TABLE_CAT_REC + ", " + TABLE_RECORDING
                 + " WHERE " + TABLE_CAT_REC + "." + REC_ID + " = " + TABLE_RECORDING + " . " + REC_ID;
 
@@ -404,6 +408,7 @@ public class DatabaseOperations extends SQLiteOpenHelper {
                 Record rec = new Record();
                 rec.setId(c.getInt((c.getColumnIndex(REC_ID))));
                 rec.setRecName((c.getString(c.getColumnIndex(REC_NAME))));
+                rec.setLocation(c.getString(c.getColumnIndex(REC_LOC)));
                 //obj.setReturn_date((c.getString(c.getColumnIndex(OBJ_RETURN_DATE))));
                 // adding to todo list
                 recordings.add(rec);
