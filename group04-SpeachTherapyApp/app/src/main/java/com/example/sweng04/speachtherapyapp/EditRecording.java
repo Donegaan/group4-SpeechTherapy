@@ -173,7 +173,7 @@ public class EditRecording extends AppCompatActivity implements OnItemClickListe
                 //Play back recording
                 Log.e("Playback filename", filename);
                 MediaPlayer playback = MediaPlayer.create(this, Uri.parse(getExternalFilesDir(null).getAbsolutePath() +"/"+filename+".wav"));
-                playback.setLooping(true);
+                //playback.setLooping(true);
                 playback.setOnCompletionListener(new MediaPlayer.OnCompletionListener(){
                     public void onCompletion(MediaPlayer mp) {
                         mp.release();

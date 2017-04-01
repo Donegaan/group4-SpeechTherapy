@@ -133,7 +133,7 @@ public class Recordings extends AppCompatActivity implements OnItemClickListener
             Log.d("Attempting to play", recordings.get(position).getRecName());
             Log.d("Attempting to play", getExternalFilesDir(null).getAbsolutePath() +"/"+recordings.get(position).getLocation());
             MediaPlayer playback = MediaPlayer.create(this, Uri.parse(getExternalFilesDir(null).getAbsolutePath() +"/"+recordings.get(position).getLocation()));
-            playback.setLooping(true);
+            //playback.setLooping(true);
             playback.setOnCompletionListener(new MediaPlayer.OnCompletionListener(){
                 public void onCompletion(MediaPlayer mp) {
                     mp.release();
