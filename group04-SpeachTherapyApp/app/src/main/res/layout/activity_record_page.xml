@@ -41,7 +41,8 @@
         android:paddingBottom="70sp"
         android:text="@string/rec"
         android:textColor="@android:color/white"
-        android:textSize="40sp" />
+        android:textSize="40sp"
+        android:layout_alignParentTop="true" />
 
     <!--&lt;!&ndash;Back Button&ndash;&gt;-->
     <!--<Button-->
