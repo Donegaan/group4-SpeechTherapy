@@ -31,9 +31,9 @@
                 android:layout_toEndOf="@+id/button" />
             <Button
                 android:text="@string/unassigned_recordings"
-                android:background="@color/buttonColour"
+                android:background="@android:color/white"
                 android:foreground="@drawable/ripple_effect"
-                android:textColor="@android:color/white"
+                android:textColor="@color/buttonColour"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/button"

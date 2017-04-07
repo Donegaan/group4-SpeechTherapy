@@ -25,11 +25,11 @@
             android:id="@+id/button2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/buttonColour"
+            android:background="@android:color/white"
             android:foreground="@drawable/ripple_effect"
             android:onClick="unassignedClicked"
             android:text="@string/unassigned_recordings"
-            android:textColor="@android:color/white"
+            android:textColor="@color/buttonColour"
             android:textSize="25sp" />
 
         <ListView

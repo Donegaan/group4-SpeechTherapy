@@ -38,14 +38,12 @@ public class Recordings extends AppCompatActivity implements OnItemClickListener
         } else {
             recordings = db.getRecCat(catID); // This gets the recordings from a specific category.
         }
-
         //Log.d("rec array size", recordings.size()+"");
         prevActivity = getIntent().getStringExtra("key");
         if (prevActivity.equals("Edit")){
             Button done = (Button) findViewById(R.id.doneEdit);
             done.setVisibility(View.VISIBLE);
         }
-        //TODO Get Recordings saving and displaying properly
         ListView list = (ListView) findViewById(R.id.rec_list);
         recAdapter adapter = new recAdapter();
         list.setAdapter(adapter);

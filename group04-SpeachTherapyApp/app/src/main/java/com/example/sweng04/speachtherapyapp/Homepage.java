@@ -4,6 +4,8 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
+import android.widget.RelativeLayout;
 
 public class Homepage extends AppCompatActivity {
 
@@ -11,6 +13,16 @@ public class Homepage extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_homepage);
+//        Button recButton=(Button) findViewById(R.id.recButton);
+//        int width = getResources().getDisplayMetrics().widthPixels;
+//        int hei=getResources().getDisplayMetrics().heightPixels/4;
+//        recButton.setLayoutParams(new RelativeLayout.LayoutParams(width,hei));
+//        Button editButton=(Button) findViewById(R.id.editButton);
+//        editButton.setLayoutParams(new RelativeLayout.LayoutParams(width,hei));
+//        Button catButton=(Button) findViewById(R.id.allRecs);
+//        catButton.setLayoutParams(new RelativeLayout.LayoutParams(width,hei));
+//        Button favButton=(Button) findViewById(R.id.favButton);
+//        favButton.setLayoutParams(new RelativeLayout.LayoutParams(width,hei));
     }
 
     public void makeRecording(View view){

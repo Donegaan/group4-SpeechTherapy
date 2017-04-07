@@ -1,60 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/activity_homepage"
-    android:layout_width="match_parent"
+<LinearLayout android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="com.example.sweng04.speachtherapyapp.Homepage">
-
+    android:padding="10dp"
+    android:orientation="vertical"
+    xmlns:android="http://schemas.android.com/apk/res/android">
 
     <!--Record Button-->
     <Button
         android:layout_width="match_parent"
         android:background="@color/buttonColour"
         android:textColor="#FFFFFF"
-        android:layout_height="120sp"
+        android:layout_height="wrap_content"
         android:id="@+id/recButton"
         android:foreground="@drawable/ripple_effect"
         android:text="@string/make_rec"
         android:textSize="30sp"
-        android:layout_alignParentTop="true"
+        android:layout_weight="0.25"
         android:onClick="makeRecording"/>
 
 
-
-
-    <!--Export Button
-    <Button
-        android:text="@string/exp_rec"
-        android:background="@color/buttonColour"
-        android:textSize="25sp"
-        android:foreground="@drawable/ripple_effect"
-        android:textColor="#FFFFFF"
-        android:layout_width="160sp"
-        android:layout_height="60sp"
-        android:id="@+id/exportButton"
-        android:layout_alignTop="@+id/editButton"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
-    -->
     <!--Edit Button-->
     <Button
         android:text="@string/edit_rec"
         android:background="@color/buttonColour"
         android:foreground="@drawable/ripple_effect"
-        android:textSize="25sp"
+        android:textSize="30sp"
         android:textColor="#FFFFFF"
         android:layout_width="match_parent"
-        android:layout_height="60sp"
+        android:layout_height="wrap_content"
         android:id="@+id/editButton"
-        android:layout_below="@+id/recButton"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
+        android:layout_weight="0.25"
         android:layout_marginTop="15dp"
         android:onClick="edit"/>
 
@@ -62,10 +37,8 @@
     <Button
         android:id="@+id/allRecs"
         android:layout_width="match_parent"
-        android:layout_height="125sp"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_below="@+id/editButton"
+        android:layout_height="wrap_content"
+        android:layout_weight="0.25"
         android:layout_marginTop="16dp"
         android:background="@color/buttonColour"
         android:foreground="@drawable/ripple_effect"
@@ -80,19 +53,12 @@
         android:background="@color/buttonColour"
         android:foreground="@drawable/ripple_effect"
         android:textColor="#FFFFFF"
-        android:layout_width="wrap_content"
-        android:layout_height="125sp"
-        android:layout_below="@+id/allRecs"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_marginTop="15dp"
         android:id="@+id/favButton"
+        android:layout_weight="0.25"
         android:textSize="30sp"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
         android:onClick="viewFavourite"
         />
-
-
-</RelativeLayout>
+</LinearLayout>
