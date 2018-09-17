@@ -1,3 +1,3 @@
 # group4-SpeechTherapy
 
-Installing OpenCV on Android Studio: https://stackoverflow.com/questions/27406303/opencv-in-android-studio
+Android application to record and store phrases to be played back and used easily.
